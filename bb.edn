@@ -1,0 +1,7 @@
+{:paths ["scripts"]
+ :tasks
+ {:requires             ([babashka.fs :as fs])
+
+  run-admin-server-dev  (clojure {:dir "projects/admin"} "-M:dev:backend")
+  run-client-server-dev (clojure {:dir "projects/client"} "-M:dev:backend")
+  }}

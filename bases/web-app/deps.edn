@@ -1,0 +1,5 @@
+{:paths   ["src" "resources"]
+ :deps    {org.clojure/clojurescript {:mvn/version "1.11.60"}
+           com.hyperfiddle/electric  {:mvn/version "v2-alpha-540-ga4699532"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}}}

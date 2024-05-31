@@ -1,0 +1,5 @@
+{:paths   ["src" "resources"]
+ :deps    {streamcraft/repl   {:local/root "../repl"}
+           streamcraft/system {:local/root "../../components/system"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}}}

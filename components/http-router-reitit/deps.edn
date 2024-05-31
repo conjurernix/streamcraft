@@ -1,0 +1,8 @@
+{:paths   ["src" "resources"]
+ :deps    {metosin/reitit             {:mvn/version "0.7.0-alpha7"}
+           com.stuartsierra/component {:mvn/version "1.1.0"}
+           com.taoensso/timbre        {:mvn/version "6.3.1"}
+
+           streamcraft/protocols  {:local/root "../../components/protocols"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}}}

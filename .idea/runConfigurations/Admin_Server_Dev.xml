@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Admin Server Dev" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false" singleton="true">
+    <option name="configVersion" value="1" />
+    <option name="displayName" value="Admin Server Dev" />
+    <option name="execution" value="DEPS" />
+    <module name="admin" />
+    <option name="options" value="-A:dev:backend" />
+    <option name="profiles" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/projects/admin" />
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </extension>
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </extension>
+    <method v="2" />
+  </configuration>
+</component>

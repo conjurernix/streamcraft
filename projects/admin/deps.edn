@@ -1,0 +1,23 @@
+{:paths   ["src"]
+
+ :aliases {:backend  {:extra-deps
+                      {org.clojure/clojure              {:mvn/version "1.11.1"}
+
+                       ; Bases
+                       streamcraft/admin-base       {:local/root "../../bases/admin-base"}
+                       streamcraft/server           {:local/root "../../bases/server"}
+                       streamcraft/bootstrap-server {:local/root "../../bases/bootstrap-server"}
+                       streamcraft/protocols        {:local/root "../../components/protocols"}
+                       streamcraft/repl             {:local/root "../../bases/repl"}
+                       ; Components
+                       streamcraft/system           {:local/root "../../components/system"}
+                       streamcraft/config           {:local/root "../../components/config-aero"}
+                       streamcraft/http-defaults    {:local/root "../../components/http-defaults-reitit"}
+                       streamcraft/http-handler     {:local/root "../../components/http-handler-reitit"}
+                       streamcraft/http-server      {:local/root "../../components/http-server-jetty"}
+                       streamcraft/http-router      {:local/root "../../components/http-router-reitit"}}}
+           :frontend {:extra-deps {}}
+           :dev      {:extra-paths ["resources/dev"]
+                      :extra-deps  {hashp/hashp {:mvn/version "0.2.1"}}}
+           :test     {:extra-paths []
+                      :extra-deps  {}}}}

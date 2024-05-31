@@ -1,0 +1,9 @@
+{:paths   ["src" "resources"]
+ :deps    {com.hyperfiddle/electric   {:mvn/version "v2-alpha-540-ga4699532"}
+           com.stuartsierra/component {:mvn/version "1.1.0"}
+           com.taoensso/timbre        {:mvn/version "6.3.1"}
+           ring/ring                  {:mvn/version "1.11.0"}
+
+           streamcraft/protocols  {:local/root "../../components/protocols"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}}}

@@ -1,0 +1,4 @@
+{:jetty {:port  8080
+         :join? false}
+ :nrepl {:port #long #or [#env NREPL_PORT 7001]
+         :bind #or [#env NREPL_BIND "127.0.0.1"]}}
