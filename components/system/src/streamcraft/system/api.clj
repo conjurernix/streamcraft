@@ -4,8 +4,8 @@
 (defn start-system! [system]
   (core/start-system! system))
 
-(defn stop--system! [system]
+(defn stop-system! [system]
   (core/stop-system! system))
 
-(defn make-system [config]
-  (core/make-system config))
+(defn make-system [config routes entrypoint]
+  (core/make-system config routes entrypoint))

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/projects/admin/admin.iml" filepath="$PROJECT_DIR$/projects/admin/admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/admin-base/admin-base.iml" filepath="$PROJECT_DIR$/bases/admin-base/admin-base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backindrive-platform.iml" filepath="$PROJECT_DIR$/backindrive-platform.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/bootstrap-server/bootstrap-server.iml" filepath="$PROJECT_DIR$/bases/bootstrap-server/bootstrap-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/projects/client/client.iml" filepath="$PROJECT_DIR$/projects/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/client-base/client-base.iml" filepath="$PROJECT_DIR$/bases/client-base/client-base.iml" />
@@ -14,8 +13,10 @@
       <module fileurl="file://$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" filepath="$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" filepath="$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/protocols/protocols.iml" filepath="$PROJECT_DIR$/components/protocols/protocols.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/reactor/reactor.iml" filepath="$PROJECT_DIR$/components/reactor/reactor.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/repl/repl.iml" filepath="$PROJECT_DIR$/bases/repl/repl.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/server/server.iml" filepath="$PROJECT_DIR$/bases/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/streamcraft.iml" filepath="$PROJECT_DIR$/streamcraft.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/utils/utils.iml" filepath="$PROJECT_DIR$/components/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/web-app/web-app.iml" filepath="$PROJECT_DIR$/bases/web-app/web-app.iml" />

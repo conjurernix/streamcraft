@@ -1,33 +1,40 @@
-{:aliases {:dev  {:extra-paths ["development/src"]
+{:aliases {:dev      {:extra-paths ["development/src" "development/resources"]
 
-                  :extra-deps  {org.clojure/clojure          {:mvn/version "1.11.1"}
-                                org.clojure/clojurescript    {:mvn/version "1.11.60"}
-                                org.clojure/tools.namespace  {:mvn/version "1.5.0"}
-                                com.hyperfiddle/electric     {:mvn/version "v2-alpha-540-ga4699532"}
-                                thheller/shadow-cljs         {:mvn/version "2.27.5"}
+                      :extra-deps  {org.clojure/clojure                     {:mvn/version "1.11.1"}
+                                    org.clojure/clojurescript               {:mvn/version "1.11.60"}
+                                    org.clojure/tools.namespace             {:mvn/version "1.5.0"}
+                                    com.hyperfiddle/electric                {:mvn/version "v2-alpha-540-ga4699532"}
+                                    thheller/shadow-cljs                    {:mvn/version "2.28.8"}
+                                    com.fasterxml.jackson.core/jackson-core {:mvn/version "2.17.1"}
 
-                                hashp/hashp                  {:mvn/version "0.2.2"}
+                                    ; Devenv tools
+                                    hashp/hashp                             {:mvn/version "0.2.2"}
 
-                                ; Bases
-                                streamcraft/admin-base       {:local/root "bases/admin-base"}
-                                streamcraft/client-base      {:local/root "bases/client-base"}
-                                streamcraft/bootstrap-server {:local/root "bases/bootstrap-server"}
-                                streamcraft/server           {:local/root "bases/server"}
-                                streamcraft/repl             {:local/root "bases/repl"}
-                                streamcraft/web-app          {:local/root "bases/web-app"}
-                                ; Components
-                                streamcraft/config           {:local/root "components/config-aero"}
-                                streamcraft/protocols        {:local/root "components/protocols"}
-                                streamcraft/reactor          {:local/root "components/reactor"}
-                                streamcraft/system           {:local/root "components/system"}
-                                streamcraft/utils            {:local/root "components/utils"}}}
+                                    ; Bases
+                                    streamcraft/admin-base                  {:local/root "bases/admin-base"}
+                                    streamcraft/client-base                 {:local/root "bases/client-base"}
+                                    streamcraft/bootstrap-server            {:local/root "bases/bootstrap-server"}
+                                    streamcraft/server                      {:local/root "bases/server"}
+                                    streamcraft/repl                        {:local/root "bases/repl"}
+                                    streamcraft/web-app                     {:local/root "bases/web-app"}
+                                    ; Components
+                                    streamcraft/config                      {:local/root "components/config-aero"}
+                                    streamcraft/protocols                   {:local/root "components/protocols"}
+                                    streamcraft/reactor                     {:local/root "components/reactor"}
+                                    streamcraft/system                      {:local/root "components/system"}
+                                    streamcraft/utils                       {:local/root "components/utils"}
 
-           :defaults {:extra-deps {streamcraft/http-defaults    {:local/root "components/http-defaults-reitit"}
-                                   streamcraft/http-handler     {:local/root "components/http-handler-reitit"}
-                                   streamcraft/http-server      {:local/root "components/http-server-jetty"}
-                                   streamcraft/http-router      {:local/root "components/http-router-reitit"}}}
+                                    streamcraft/http-defaults               {:local/root "components/http-defaults-reitit"}
+                                    streamcraft/http-handler                {:local/root "components/http-handler-reitit"}
+                                    streamcraft/http-server                 {:local/root "components/http-server-jetty"}
+                                    streamcraft/http-router                 {:local/root "components/http-router-reitit"}}}
 
-           :test {:extra-paths []}
+           :defaults {:extra-deps {streamcraft/http-defaults {:local/root "components/http-defaults-reitit"}
+                                   streamcraft/http-handler  {:local/root "components/http-handler-reitit"}
+                                   streamcraft/http-server   {:local/root "components/http-server-jetty"}
+                                   streamcraft/http-router   {:local/root "components/http-router-reitit"}}}
 
-           :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                  :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}}
+           :test     {:extra-paths []}
+
+           :poly     {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                      :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}}

@@ -1,0 +1,13 @@
+{
+  "name": "streamcraft",
+  "version": "1.0.0",
+  "description": "<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "devDependencies": {
+    "shadow-cljs": "^2.28.8"
+  }
+}

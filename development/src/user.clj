@@ -1,29 +1,27 @@
 (ns user
-  (:require [streamcraft.config.api :as config]
-            [streamcraft.system.api :as system]
-            [com.stuartsierra.component :as component]
-            [clojure.tools.namespace.repl :as repl]
-            [hashp.core]))
+  (:require [clojure.tools.namespace.repl :as repl]
+            [hashp.core]
+            [shadow.cljs.devtools.api :as shadow.api]
+            [shadow.cljs.devtools.server :as shadow.server]
+            [streamcraft.admin-base.main :as admin]
+            [streamcraft.client-base.main :as client]
+            [streamcraft.system.api :as system]))
 
-(defonce admin-config (config/load-config! "admin-base/config.edn"))
+(defonce admin-system (admin/start!))
 
-(defonce admin-system (system/make-system admin-config))
-
-(defonce client-config (config/load-config! "client-base/config.edn"))
-
-(defonce client-system (system/make-system client-config))
+(defonce client-system (client/start!))
 
 (defn start-admin! []
-  (alter-var-root #'admin-system component/start))
+  (alter-var-root #'admin-system system/start-system!))
 
 (defn stop-admin! []
-  (alter-var-root #'admin-system component/stop))
+  (alter-var-root #'admin-system system/stop-system!))
 
 (defn start-client! []
-  (alter-var-root #'client-system component/start))
+  (alter-var-root #'client-system system/start-system!))
 
 (defn stop-client! []
-  (alter-var-root #'client-system component/stop))
+  (alter-var-root #'client-system system/stop-system!))
 
 (defn go []
   (start-admin!)
@@ -36,3 +34,11 @@
 (defn reset []
   (halt)
   (repl/refresh-all :after 'user/go))
+
+(defn start-shadow! []
+  (shadow.server/start!)
+  (shadow.api/watch :admin-dev)
+  (shadow.api/watch :client-dev))
+
+(defn stop-shadow! []
+  (shadow.server/stop!))

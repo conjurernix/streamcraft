@@ -4,6 +4,7 @@
     <option name="enabledAliases">
       <set>
         <option value="backend" />
+        <option value="defaults" />
         <option value="dev" />
         <option value="frontend" />
         <option value="poly" />

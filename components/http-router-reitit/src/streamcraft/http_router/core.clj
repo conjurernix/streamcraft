@@ -1,10 +1,9 @@
 (ns streamcraft.http-router.core
-  (:require [streamcraft.protocols.api :as protocols]
-            [com.stuartsierra.component :as component]
+  (:require [com.stuartsierra.component :as component]
             [muuntaja.core :as m]
             [reitit.coercion.malli :as rcm]
             [reitit.ring :as ring]
-            [reitit.ring.coercion :as rrc]
+            [streamcraft.protocols.api :as protocols]
             [taoensso.timbre :as log]))
 
 (defn- -make-reitit-router [routes middleware]
@@ -13,10 +12,7 @@
     {:conflicts (constantly nil)
      :data      {:muuntaja   m/instance
                  :coercion   rcm/coercion
-                 :middleware (concat middleware
-                                     [rrc/coerce-exceptions-middleware
-                                      rrc/coerce-request-middleware
-                                      rrc/coerce-response-middleware])}}))
+                 :middleware middleware}}))
 
 (defrecord ReititRouter
   [middleware routes router]

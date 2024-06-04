@@ -3,4 +3,5 @@
 
 (def default-middleware core/default-middleware)
 
-(def default-route-setup core/default-route-setup)
+(defn default-route-setup [routes config entrypoint]
+  (core/default-route-setup routes config entrypoint))

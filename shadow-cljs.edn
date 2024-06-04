@@ -1,0 +1,24 @@
+{:deps true
+ :builds
+ {:admin-dev   {:target      :browser
+                :devtools    {:loader-mode :default, :watch-dir "development/resources/admin/public"}
+                :output-dir  "development/resources/admin/public/js"
+                :asset-path  "/js"
+                :modules     {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :build-hooks [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)]}
+  :admin-prod  {:target            :browser
+                :output-dir        "projects/admin/resources/admin/public/js"
+                :asset-path        "/js"
+                :modules           {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :module-hash-names true}
+  :client-dev  {:target      :browser
+                :devtools    {:loader-mode :default, :watch-dir "development/resources/client/public"}
+                :output-dir  "development/resources/client/public/js"
+                :asset-path  "/js"
+                :modules     {:main {:entries [streamcraft.client-base.main] :init-fn streamcraft.client-base.main/start!}}
+                :build-hooks [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)]}
+  :client-prod {:target            :browser
+                :output-dir        "projects/client/resources/client/public/js"
+                :asset-path        "/js"
+                :modules           {:main {:entries [streamcraft.client-base.main] :init-fn streamcraft.client-base.main/start!}}
+                :module-hash-names true}}}

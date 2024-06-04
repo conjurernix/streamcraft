@@ -3,8 +3,8 @@
     <option name="configVersion" value="1" />
     <option name="displayName" value="devenv" />
     <option name="execution" value="DEPS" />
-    <module name="backindrive-platform" />
-    <option name="options" value="-A:dev" />
+    <module name="streamcraft" />
+    <option name="options" value="-A:dev:defaults" />
     <option name="profiles" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">

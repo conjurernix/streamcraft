@@ -1,4 +1,6 @@
-{:jetty {:port  8080
-         :join? false}
+{:jetty {:port           8080
+         :join?          false
+         :resources-path "admin/public"
+         :manifest-path  "admin/public/js/manifest.edn"}
  :nrepl {:port #long #or [#env NREPL_PORT 7001]
          :bind #or [#env NREPL_BIND "127.0.0.1"]}}

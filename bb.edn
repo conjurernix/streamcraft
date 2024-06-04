@@ -4,4 +4,5 @@
 
   run-admin-server-dev  (clojure {:dir "projects/admin"} "-M:dev:backend")
   run-client-server-dev (clojure {:dir "projects/client"} "-M:dev:backend")
-  }}
+
+  dev                   (clojure "-M:dev:defaults")}}

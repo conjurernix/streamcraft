@@ -1,18 +1,16 @@
 (ns ^:dev/always streamcraft.web-app.app
-  (:require [hyperfiddle.electric :as e]
-            [streamcraft.web-app.core :as core]))
+  (:require [hyperfiddle.electric :as e]))
 
-(def electric-main
-  (e/boot-client {} core/App))
+(defn electric-main [entrypoint]
+  (e/boot-client {} entrypoint nil))
 
-(defonce reactor nil)
+(defn start! [reactor entrypoint]
+  (assert (nil? @reactor) "reactor already running")
+  (let [electric-main (electric-main entrypoint)]
+    (reset! reactor (electric-main
+                      #(js/console.log "Reactor success:" %)
+                      #(js/console.error "Reactor failure:" %)))))
 
-(defn ^:dev/after-load ^:export start! []
-  (assert (nil? reactor) "reactor already running")
-  (set! reactor (electric-main
-                  #(js/console.log "Reactor success:" %)
-                  #(js/console.error "Reactor failure:" %))))
-
-(defn ^:dev/before-load stop! []
-  (when reactor (reactor))                                  ; teardown
-  (set! reactor nil))
+(defn stop! [reactor]
+  (when @reactor (@reactor))                                ; teardown
+  (reset! reactor nil))
