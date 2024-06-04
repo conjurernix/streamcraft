@@ -37,3 +37,9 @@ projects/**/pom.xml
 
 # Calva VS Code Extension
 .calva/output-window/output.calva-repl
+
+# Javascript modules and output
+node_modules/
+.shadow-cljs/
+./development/resources/admin/public/js/
+./development/resources/client/public/js/
