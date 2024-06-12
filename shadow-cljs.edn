@@ -1,22 +1,46 @@
 {:deps true
  :builds
- {:admin-dev   {:target      :browser
-                :devtools    {:loader-mode :default, :watch-dir "development/resources/admin/public"}
-                :output-dir  "development/resources/admin/public/js"
-                :asset-path  "/js"
-                :modules     {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
-                :build-hooks [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)]}
+ {:admin-dev   {:target           :browser
+                :devtools         {:loader-mode :default
+                                   :watch-dir   "development/resources/admin/public"
+                                   :preloads    [hashp.core]}
+                :compiler-options {:source-map true
+                                   ;; Ignore redefinition warnings of `clojure.core/abs` with custom `abs`
+                                   ;; functions from several libraries.
+                                   :warnings   {:redef false}}
+                :js-options       {;; Keep MUI component names in React Devtools
+                                   ;; https://github.com/arttuka/reagent-material-ui/#mui-component-names-with-shadow-cljs
+                                   :anon-fn-naming-policy :unmapped}
+                :output-dir       "development/resources/admin/public/js"
+                :asset-path       "/js"
+                :modules          {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
+                                   (shadow.cljs.build-report/hook {:output-to "target/admin/build_report.html"})]
+                :closure-defines  {goog.DEBUG                                        true
+                                   hyperfiddle.electric-client/ELECTRIC_USER_VERSION "dev"}}
   :admin-prod  {:target            :browser
                 :output-dir        "projects/admin/resources/admin/public/js"
                 :asset-path        "/js"
                 :modules           {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
                 :module-hash-names true}
-  :client-dev  {:target      :browser
-                :devtools    {:loader-mode :default, :watch-dir "development/resources/client/public"}
-                :output-dir  "development/resources/client/public/js"
-                :asset-path  "/js"
-                :modules     {:main {:entries [streamcraft.client-base.main] :init-fn streamcraft.client-base.main/start!}}
-                :build-hooks [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)]}
+  :client-dev  {:target           :browser
+                :devtools         {:loader-mode :default
+                                   :watch-dir   "development/resources/client/public"
+                                   :preloads    [hashp.core]}
+                :compiler-options {:source-map true
+                                   ;; Ignore redefinition warnings of `clojure.core/abs` with custom `abs`
+                                   ;; functions from several libraries.
+                                   :warnings   {:redef false}}
+                :js-options       {;; Keep MUI component names in React Devtools
+                                   ;; https://github.com/arttuka/reagent-material-ui/#mui-component-names-with-shadow-cljs
+                                   :anon-fn-naming-policy :unmapped}
+                :output-dir       "development/resources/client/public/js"
+                :asset-path       "/js"
+                :modules          {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
+                                   (shadow.cljs.build-report/hook {:output-to "target/client/build_report.html"})]
+                :closure-defines  {goog.DEBUG                                        true
+                                   hyperfiddle.electric-client/ELECTRIC_USER_VERSION "dev"}}
   :client-prod {:target            :browser
                 :output-dir        "projects/client/resources/client/public/js"
                 :asset-path        "/js"

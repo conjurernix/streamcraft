@@ -7,5 +7,5 @@
 (defn stop-system! [system]
   (core/stop-system! system))
 
-(defn make-system [config routes entrypoint]
-  (core/make-system config routes entrypoint))
+(defn make-system [system-props]
+  (core/make-system system-props))

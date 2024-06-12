@@ -3,30 +3,62 @@
             [muuntaja.core :as m]
             [reitit.coercion.malli :as rcm]
             [reitit.ring :as ring]
+            [reitit.swagger :as swagger]
+            [reitit.swagger-ui :as swagger-ui]
+            [ring.util.http-response :as http]
             [streamcraft.protocols.api :as protocols]
             [taoensso.timbre :as log]))
 
-(defn- -make-reitit-router [routes middleware]
-  (ring/router
-    routes
-    {:conflicts (constantly nil)
-     :data      {:muuntaja   m/instance
-                 :coercion   rcm/coercion
-                 :middleware middleware}}))
+(defn- -make-reitit-router [routes middleware electric-handler {:keys [jetty]}]
+  (let [{:keys [resources-path]} jetty]
+    (ring/router
+      (->> routes
+           (into [["/app"
+                   ["*" {:get {:handler electric-handler}}]]
+                  ["/js/*" (ring/create-resource-handler
+                             {:root              (str resources-path "/js")
+                              :not-found-handler (constantly http/not-found)})]
+                  ["/public/*" (ring/create-resource-handler
+                                 {:root              resources-path
+                                  :not-found-handler (constantly http/not-found)})]
+                  ["/api"
+                   routes
+                   ["/ping" {:get {:handler   (constantly (http/ok "pong"))
+                                   :summary   "Endpoint to ping server"
+                                   :responses {200 {:body [:enum "pong"]}}}}]
+                   ["/docs/*"
+                    {:get (swagger-ui/create-swagger-ui-handler
+                            {:url    "/api/swagger.json"
+                             :config {:validator-url nil}})}]
+                   ["/swagger.json"
+                    {:get {:no-doc  true
+                           :swagger {:info {:title       "API documentation"
+                                            :description "swagger.json for API"}}
+                           :handler (swagger/create-swagger-handler)}}]]]))
+      {:conflicts (constantly nil)
+       :data      {:muuntaja   m/instance
+                   :coercion   rcm/coercion
+                   :middleware middleware}})))
 
 (defrecord ReititRouter
-  [middleware routes router]
+  [config middleware electric-handler entrypoint routes router]
   component/Lifecycle
 
   (start [this]
     (if router
       this
       (do (log/info "Starting ReititRouter")
-          (assoc this :router (-make-reitit-router routes middleware)))))
+          (assoc this :router (-make-reitit-router routes middleware electric-handler config)))))
   (stop [this]
     (if router
       (do (log/info "Stopping ReititRouter")
-          (assoc this :router nil))
+          (-> this
+              (assoc :config nil)
+              (assoc :middleware nil)
+              (assoc :entrypoint nil)
+              (assoc :electric-handler nil)
+              (assoc :routes nil)
+              (assoc :router nil)))
       this))
 
 
@@ -34,5 +66,5 @@
   (routes [_this] routes)
   (router [_this] router))
 
-(defn make-router [_config]
+(defn make-router []
   (map->ReititRouter {}))

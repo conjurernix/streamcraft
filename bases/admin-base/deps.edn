@@ -1,4 +1,4 @@
 {:paths   ["src" "resources"]
- :deps    {streamcraft/bootstrap-server {:local/root "../bootstrap-server"}}
+ :deps    {streamcraft/bootstrap {:local/root "../bootstrap"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps  {}}}}

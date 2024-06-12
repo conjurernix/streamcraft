@@ -27,5 +27,5 @@
   (handler [_]
     handler))
 
-(defn make-handler [_config]
+(defn make-handler []
   (map->ReititHandlerProvider {}))

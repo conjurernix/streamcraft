@@ -4,9 +4,9 @@
 
 (defn start-nrepl!
   "Start a nREPL for debugging on specified port."
-  [nrepl]
+  []
   (try
-    (let [{:keys [port] :as server} (nrepl/start-server nrepl)]
+    (let [{:keys [port] :as server} (nrepl/start-server)]
       (log/info "Starting nREPL server on port" port)
       (spit ".nrepl-port" port)
       server)

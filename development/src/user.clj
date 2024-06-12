@@ -1,11 +1,14 @@
 (ns user
-  (:require [clojure.tools.namespace.repl :as repl]
+  (:require [clojure.tools.namespace.repl :as tools.repl]
             [hashp.core]
             [shadow.cljs.devtools.api :as shadow.api]
             [shadow.cljs.devtools.server :as shadow.server]
             [streamcraft.admin-base.main :as admin]
             [streamcraft.client-base.main :as client]
+            [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]))
+
+(repl/start-nrepl!)
 
 (defonce admin-system (admin/start!))
 
@@ -33,7 +36,7 @@
 
 (defn reset []
   (halt)
-  (repl/refresh-all :after 'user/go))
+  (tools.repl/refresh-all :after 'user/go))
 
 (defn start-shadow! []
   (shadow.server/start!)

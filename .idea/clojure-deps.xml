@@ -23,6 +23,20 @@
   <component name="DepsProjectsManager">
     <option name="projectFiles">
       <set>
+        <option value="file://$PROJECT_DIR$/bases/admin-base/deps.edn" />
+        <option value="file://$PROJECT_DIR$/bases/bootstrap/deps.edn" />
+        <option value="file://$PROJECT_DIR$/bases/client-base/deps.edn" />
+        <option value="file://$PROJECT_DIR$/bases/repl/deps.edn" />
+        <option value="file://$PROJECT_DIR$/bases/web-app/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/config-aero/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-electric-handler-reitit/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-handler-reitit/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-middleware-reitit/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-router-reitit/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-server-jetty/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/protocols/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/system/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/utils/deps.edn" />
         <option value="file://$PROJECT_DIR$/deps.edn" />
         <option value="file://$PROJECT_DIR$/projects/admin/deps.edn" />
         <option value="file://$PROJECT_DIR$/projects/client/deps.edn" />

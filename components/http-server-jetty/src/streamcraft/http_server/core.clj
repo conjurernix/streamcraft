@@ -14,7 +14,11 @@
   [server]
   (.setHandler server
                (doto (GzipHandler.)
-                 #_(.setIncludedMimeTypes (into-array ["text/css" "text/plain" "text/javascript" "application/javascript" "application/json" "image/svg+xml"])) ; only compress these
+                 #_(.setIncludedMimeTypes
+                   (-> ["text/css" "text/plain" "text/javascript"
+                        "application/javascript" "application/json"
+                        "image/svg+xml"]
+                       (into-array)))                       ; only compress these
                  (.setMinGzipSize 1024)
                  (.setHandler (.getHandler server)))))
 
@@ -38,23 +42,25 @@
     (if server
       this
       (do (log/info "Starting JettyHttpServer")
-          (-> this
-              (assoc :server
-                     (-> (protocols/handler handler-provider)
-                         (jetty/run-jetty (merge
-                                            {:configurator (fn [server]
-                                                             (configure-websocket! server)
-                                                             (add-gzip-handler! server))}
-                                            config))))))))
+          (let [{:keys [jetty]} config]
+            (-> this
+                (assoc :server
+                       (-> (protocols/handler handler-provider)
+                           (jetty/run-jetty (merge
+                                              {:configurator (fn [server]
+                                                               (configure-websocket! server)
+                                                               (add-gzip-handler! server))}
+                                              jetty)))))))))
   (stop [this]
     (if server
       (do
         (log/info "Stopping JettyHttpServer")
         (.stop ^Server server)
         (-> this
+            (assoc :config nil)
             (assoc :handler-provider nil)
             (assoc :server nil)))
       this)))
 
-(defn make-server [{:keys [jetty]}]
-  (map->JettyHttpServer {:config jetty}))
+(defn make-server []
+  (map->JettyHttpServer {}))
