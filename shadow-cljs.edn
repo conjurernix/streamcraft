@@ -13,7 +13,7 @@
                                    :anon-fn-naming-policy :unmapped}
                 :output-dir       "development/resources/admin/public/js"
                 :asset-path       "/js"
-                :modules          {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :modules          {:main {:entries [streamcraft.admin-base.dev.main] :init-fn streamcraft.admin-base.dev.main/start!}}
                 :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
                                    (shadow.cljs.build-report/hook {:output-to "target/admin/build_report.html"})]
                 :closure-defines  {goog.DEBUG                                        true
@@ -36,7 +36,7 @@
                                    :anon-fn-naming-policy :unmapped}
                 :output-dir       "development/resources/client/public/js"
                 :asset-path       "/js"
-                :modules          {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
+                :modules          {:main {:entries [streamcraft.client-base.dev.main] :init-fn streamcraft.client-base.dev.main/start!}}
                 :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
                                    (shadow.cljs.build-report/hook {:output-to "target/client/build_report.html"})]
                 :closure-defines  {goog.DEBUG                                        true

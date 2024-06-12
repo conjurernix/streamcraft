@@ -15,10 +15,10 @@
   (.setHandler server
                (doto (GzipHandler.)
                  #_(.setIncludedMimeTypes
-                   (-> ["text/css" "text/plain" "text/javascript"
-                        "application/javascript" "application/json"
-                        "image/svg+xml"]
-                       (into-array)))                       ; only compress these
+                     (-> ["text/css" "text/plain" "text/javascript"
+                          "application/javascript" "application/json"
+                          "image/svg+xml"]
+                         (into-array)))                     ; only compress these
                  (.setMinGzipSize 1024)
                  (.setHandler (.getHandler server)))))
 

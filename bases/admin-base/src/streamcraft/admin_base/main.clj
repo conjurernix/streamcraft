@@ -11,7 +11,7 @@
   (bootstrap-system! {:name        "Admin System"
                       :config-path "admin-base/config.edn"
                       :routes      []
-                      :entrypoint  (fn [ring-request] (e/boot-server {} entrypoint/App ring-request))}))
+                      :entrypoint  server-entrypoint}))
 
 (defn -main [& args]
   (start!))

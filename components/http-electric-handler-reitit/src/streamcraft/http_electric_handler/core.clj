@@ -8,8 +8,7 @@
             [ring.middleware.cookies :as cookies]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.resource :refer [wrap-resource]]
-            [ring.util.response :as res])
-  (:import (clojure.lang ExceptionInfo)))
+            [ring.util.response :as res]))
 
 
 ;; The following middleware setup has been copied as is from electric-starter-app.server-jetty
@@ -47,14 +46,6 @@ information."
             (res/content-type "text/plain")))
       (next-handler ring-req))))
 
-(defn wrap-error [handler]
-  (fn [req]
-    (try
-      (handler req)
-      (catch ExceptionInfo e
-        (throw #p e))
-      (catch Throwable e
-        (throw #p e)))))
 
 (defn electric-handler [entrypoint {:keys [jetty hyperfiddle]}]
   (let [{:keys [resources-path]} jetty
