@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/protocols/protocols.iml" filepath="$PROJECT_DIR$/components/protocols/protocols.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/repl/repl.iml" filepath="$PROJECT_DIR$/bases/repl/repl.iml" />
       <module fileurl="file://$PROJECT_DIR$/streamcraft.iml" filepath="$PROJECT_DIR$/streamcraft.iml" />
+      <module fileurl="file://$PROJECT_DIR$/streamwrite.iml" filepath="$PROJECT_DIR$/streamwrite.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/utils/utils.iml" filepath="$PROJECT_DIR$/components/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/web-app/web-app.iml" filepath="$PROJECT_DIR$/bases/web-app/web-app.iml" />
