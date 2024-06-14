@@ -28,6 +28,7 @@
         <option value="file://$PROJECT_DIR$/bases/client-base/deps.edn" />
         <option value="file://$PROJECT_DIR$/bases/repl/deps.edn" />
         <option value="file://$PROJECT_DIR$/bases/web-app/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/client-ui/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/config-aero/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-electric-handler-reitit/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-handler-reitit/deps.edn" />

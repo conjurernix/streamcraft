@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/bases/bootstrap/bootstrap.iml" filepath="$PROJECT_DIR$/bases/bootstrap/bootstrap.iml" />
       <module fileurl="file://$PROJECT_DIR$/projects/client/client.iml" filepath="$PROJECT_DIR$/projects/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/client-base/client-base.iml" filepath="$PROJECT_DIR$/bases/client-base/client-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/client-ui/client-ui.iml" filepath="$PROJECT_DIR$/components/client-ui/client-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/config-aero/config-aero.iml" filepath="$PROJECT_DIR$/components/config-aero/config-aero.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" />
@@ -15,7 +16,6 @@
       <module fileurl="file://$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" filepath="$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/protocols/protocols.iml" filepath="$PROJECT_DIR$/components/protocols/protocols.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/repl/repl.iml" filepath="$PROJECT_DIR$/bases/repl/repl.iml" />
-      <module fileurl="file://$PROJECT_DIR$/streamcraft.iml" filepath="$PROJECT_DIR$/streamcraft.iml" />
       <module fileurl="file://$PROJECT_DIR$/streamwrite.iml" filepath="$PROJECT_DIR$/streamwrite.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/utils/utils.iml" filepath="$PROJECT_DIR$/components/utils/utils.iml" />

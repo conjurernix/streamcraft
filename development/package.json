@@ -1,0 +1,30 @@
+{
+  "name": "development",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "postcss:admin:build": "postcss resources/admin/public/css/input.css -o resources/admin/public/css/output.css --verbose",
+    "postcss:admin:watch": "postcss resources/admin/public/css/input.css -o resources/admin/public/css/output.css --verbose -w",
+    "postcss:client:build": "postcss resources/client/public/css/input.css -o resources/client/public/css/output.css --verbose",
+    "postcss:client:watch": "postcss resources/client/public/css/input.css -o resources/client/public/css/output.css --verbose -w",
+    "postcss:build": "concurrently \"npm:postcss:admin:build\" \"npm:postcss:client:build\"",
+    "postcss:watch": "concurrently \"npm:postcss:admin:watch\" \"npm:postcss:client:watch\""
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.19",
+    "concurrently": "^8.2.2",
+    "postcss": "8.4.38",
+    "postcss-cli": "11.0.0",
+    "shadow-cljs": "2.28.9",
+    "tailwindcss": "3.4.4"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "0.5.7",
+    "franken-ui": "0.0.13",
+    "lodash": "4.17.21",
+    "uikit": "3.21.5"
+  }
+}

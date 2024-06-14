@@ -3,8 +3,8 @@
             [hashp.core]
             [shadow.cljs.devtools.api :as shadow.api]
             [shadow.cljs.devtools.server :as shadow.server]
-            [streamcraft.admin-base.main :as admin]
-            [streamcraft.client-base.main :as client]
+            [streamwrite.admin-base.main :as admin]
+            [streamwrite.client-base.main :as client]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]))
 

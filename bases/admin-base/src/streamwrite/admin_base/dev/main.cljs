@@ -1,7 +1,7 @@
-(ns streamcraft.admin-base.dev.main
+(ns streamwrite.admin-base.dev.main
   (:require [hyperfiddle.electric :as e]
             [streamcraft.web-app.main :as app]
-            [streamcraft.admin-base.app :refer [App]]))
+            [streamwrite.admin-base.app :refer [App]]))
 
 (def entrypoint (e/boot-client {} App nil))
 

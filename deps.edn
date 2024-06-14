@@ -7,6 +7,7 @@
              org.clojure/clojurescript               {:mvn/version "1.11.60"}
              org.clojure/tools.namespace             {:mvn/version "1.5.0"}
              com.hyperfiddle/electric                {:mvn/version "v2-alpha-540-ga4699532"}
+             io.github.conjurernix/electric-franken  {:mvn/version "0.0.10"}
              thheller/shadow-cljs                    {:mvn/version "2.28.8"}
              com.fasterxml.jackson.core/jackson-core {:mvn/version "2.17.1"}
 
@@ -14,9 +15,8 @@
              hashp/hashp                             {:mvn/version "0.2.2"}
              binaryage/devtools                      {:mvn/version "1.0.7"}
 
+             ;; Streamcraft
              ; Bases
-             streamcraft/admin-base                  {:local/root "bases/admin-base"}
-             streamcraft/client-base                 {:local/root "bases/client-base"}
              streamcraft/bootstrap                   {:local/root "bases/bootstrap"}
              streamcraft/repl                        {:local/root "bases/repl"}
              streamcraft/web-app                     {:local/root "bases/web-app"}
@@ -31,7 +31,15 @@
              streamcraft/http-electric-handler       {:local/root "components/http-electric-handler-reitit"}
              streamcraft/http-handler                {:local/root "components/http-handler-reitit"}
              streamcraft/http-server                 {:local/root "components/http-server-jetty"}
-             streamcraft/http-router                 {:local/root "components/http-router-reitit"}}}
+             streamcraft/http-router                 {:local/root "components/http-router-reitit"}
+
+             ;; Streamwrite
+             ; Bases
+             streamwrite/admin-base                  {:local/root "bases/admin-base"}
+             streamwrite/client-base                 {:local/root "bases/client-base"}
+
+             ; Components
+             streamwrite/client-ui                   {:local/root "components/client-ui"}}}
 
            :defaults {:extra-deps {}}
 

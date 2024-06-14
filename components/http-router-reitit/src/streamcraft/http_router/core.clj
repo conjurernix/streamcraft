@@ -18,6 +18,9 @@
                   ["/js/*" (ring/create-resource-handler
                              {:root              (str resources-path "/js")
                               :not-found-handler (constantly http/not-found)})]
+                  ["/css/*" (ring/create-resource-handler
+                              {:root              (str resources-path "/css")
+                               :not-found-handler (constantly http/not-found)})]
                   ["/public/*" (ring/create-resource-handler
                                  {:root              resources-path
                                   :not-found-handler (constantly http/not-found)})]

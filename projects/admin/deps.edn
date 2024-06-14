@@ -4,7 +4,6 @@
                       {org.clojure/clojure              {:mvn/version "1.11.1"}
 
                        ; Bases
-                       streamcraft/admin-base       {:local/root "../../bases/admin-base"}
                        streamcraft/bootstrap {:local/root "../../bases/bootstrap"}
                        streamcraft/protocols        {:local/root "../../components/protocols"}
                        streamcraft/repl             {:local/root "../../bases/repl"}
