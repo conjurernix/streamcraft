@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/bases/bootstrap/bootstrap.iml" filepath="$PROJECT_DIR$/bases/bootstrap/bootstrap.iml" />
       <module fileurl="file://$PROJECT_DIR$/projects/client/client.iml" filepath="$PROJECT_DIR$/projects/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/client-base/client-base.iml" filepath="$PROJECT_DIR$/bases/client-base/client-base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/client-ui/client-ui.iml" filepath="$PROJECT_DIR$/components/client-ui/client-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/config-aero/config-aero.iml" filepath="$PROJECT_DIR$/components/config-aero/config-aero.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" filepath="$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-middleware-reitit/http-middleware-reitit.iml" filepath="$PROJECT_DIR$/components/http-middleware-reitit/http-middleware-reitit.iml" />

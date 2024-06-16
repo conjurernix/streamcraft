@@ -1,4 +1,4 @@
-{:top-namespace        "streamwrite"
+{:top-namespace        "streamcraft"
  :interface-ns         "api"
  :default-profile-name "default"
  :compact-views        #{}

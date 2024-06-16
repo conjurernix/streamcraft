@@ -1,12 +1,13 @@
 (ns user
   (:require [clojure.tools.namespace.repl :as tools.repl]
+    ;[clojure.repl.deps :as deps]
             [hashp.core]
             [shadow.cljs.devtools.api :as shadow.api]
             [shadow.cljs.devtools.server :as shadow.server]
-            [streamwrite.admin-base.main :as admin]
-            [streamwrite.client-base.main :as client]
             [streamcraft.repl.core :as repl]
-            [streamcraft.system.api :as system]))
+            [streamcraft.system.api :as system]
+            [streamwrite.admin-base.main :as admin]
+            [streamwrite.client-base.main :as client]))
 
 (repl/start-nrepl!)
 
@@ -36,6 +37,7 @@
 
 (defn reset []
   (halt)
+  ;(deps/sync-deps)
   (tools.repl/refresh-all :after 'user/go))
 
 (defn start-shadow! []
@@ -45,3 +47,7 @@
 
 (defn stop-shadow! []
   (shadow.server/stop!))
+
+(defn restart-shadow! []
+  (stop-shadow!)
+  (start-shadow!))
