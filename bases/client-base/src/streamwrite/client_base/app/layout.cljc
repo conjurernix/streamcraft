@@ -3,7 +3,7 @@
             [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]
             [streamwrite.frontend-router.api :as frontend-router]
-            [streamwrite.client-base.app.projects.core :as projects]
+            [streamwrite.client-base.app.project.views :as projects]
             #?@(:cljs [[reitit.frontend :as rf]
                        [reitit.frontend.easy :as rfe]])))
 
@@ -11,7 +11,7 @@
   (e/client
     (dom/div (dom/props {:class "flex justify-between items-center border-b border-gray-500 px-24 py-3"})
       (ui/Logo
-        (dom/props {:href "/"})
+        (dom/props {:href (rfe/href :home)})
         (dom/text "Logo"))
       (ui/Inline
         (dom/props {:class "mr-2"})

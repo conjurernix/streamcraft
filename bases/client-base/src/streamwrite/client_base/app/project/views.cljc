@@ -1,4 +1,4 @@
-(ns streamwrite.client-base.app.projects.core
+(ns streamwrite.client-base.app.project.views
   (:require [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]
             [conjurernix.electric-franken.api :as ui]
@@ -42,9 +42,9 @@
         (ui/NavItem
           (when (= active :project) (ui/active))
           (dom/a (dom/props {:href (rfe/href :project path)})
-            (ui/Icon "file-edit"
+            (ui/Icon "git-branch"
               (dom/props {:class "mr-2"}))
-            (dom/text "Project")))
+            (dom/text "Stream")))
         (ui/NavItem
           (when (= active :project-documents) (ui/active))
           (dom/a (dom/props {:href (rfe/href :project-documents path)})
@@ -83,10 +83,10 @@
     (dom/div (dom/props {:class "flex flex-col gap-2"})
       (dom/div (dom/props {:class "flex justify-end"})
         (ui/ButtonLink (dom/props {:href (rfe/href :project-new)})
-                       (ui/button-primary)
-                       (dom/text "New ")
-                       (ui/Icon "plus"
-                         (dom/props {:class "ml-2"}))))
+          (ui/button-primary)
+          (dom/text "New ")
+          (ui/Icon "plus"
+            (dom/props {:class "ml-2"}))))
       (dom/div (dom/props {:class   "uk-child-width-1-4 pt-8"
                            :uk-grid ""})
         (e/for [project projects]
