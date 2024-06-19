@@ -40,7 +40,11 @@
 
 (e/defn RouteSwitch []
   (e/client
-    (let [{:keys [layout view title breadcrumbs]} frontend-router/data]
-      (e/client (layout. {:view        view
-                          :title       (layout/resolve-title. title)
-                          :breadcrumbs breadcrumbs})))))
+    (let [{:keys [layout view title breadcrumbs redirect-to]} frontend-router/data]
+      (if redirect-to
+        (let [[name path query] redirect-to]
+          (rfe/navigate name {:path  path
+                              :query query}))
+        (layout. {:view        view
+                  :title       (layout/resolve-title. title)
+                  :breadcrumbs breadcrumbs})))))
