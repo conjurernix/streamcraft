@@ -94,6 +94,12 @@
           (dom/div (dom/props {:class "flex-1"})
             (view.)))))))
 
+(e/defn resolve-title [title]
+  (e/client
+    (if (string? title)
+      title
+      (title. frontend-router/match))))
+
 (e/defn MainViewLayout [{:keys [title view breadcrumbs]}]
   (e/client
     (dom/div (dom/props {:class "p-8"})
@@ -111,7 +117,7 @@
                   (ui/BreadcrumbItem
                     (dom/a
                       (dom/props {:href (rfe/href name)})
-                      (dom/text title)))))
+                      (dom/text (resolve-title. title))))))
               (ui/BreadcrumbItem
                 (dom/text title)))))
         (ui/IconDivider)

@@ -40,8 +40,7 @@
 
 (e/defn RouteSwitch []
   (e/client
-    (let [{:keys [layout view title]} frontend-router/data]
-      (e/client (layout. {:view  view
-                          :title (if (string? title)
-                                   title
-                                   (title. frontend-router/match))})))))
+    (let [{:keys [layout view title breadcrumbs]} frontend-router/data]
+      (e/client (layout. {:view        view
+                          :title       (layout/resolve-title. title)
+                          :breadcrumbs breadcrumbs})))))
