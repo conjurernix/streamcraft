@@ -1,24 +1,24 @@
 (ns streamcraft.http-server.core
   (:require [com.stuartsierra.component :as component]
             [ring.adapter.jetty :as jetty]
-            [streamcraft.protocols.api :as protocols]
+            [streamcraft.protocols.api.http-handler :as handler]
             [taoensso.timbre :as log])
   (:import (java.time Duration)
            (org.eclipse.jetty.server Server)
            (org.eclipse.jetty.server.handler.gzip GzipHandler)
            (org.eclipse.jetty.websocket.server.config JettyWebSocketServletContainerInitializer JettyWebSocketServletContainerInitializer$Configurator)
-           (streamcraft.protocols.api IHttpHandlerProvider)))
+           (streamcraft.protocols.api.http_handler IHttpHandlerProvider)))
 
 (defn- add-gzip-handler!
   "Makes Jetty server compress responses. Optional but recommended."
   [server]
   (.setHandler server
                (doto (GzipHandler.)
-                 #_(.setIncludedMimeTypes
-                     (-> ["text/css" "text/plain" "text/javascript"
-                          "application/javascript" "application/json"
-                          "image/svg+xml"]
-                         (into-array)))                     ; only compress these
+                 (.setIncludedMimeTypes
+                   (-> ["text/css" "text/plain" "text/javascript"
+                        "application/javascript" "application/json"
+                        "image/svg+xml"]
+                       (into-array)))                       ; only compress these
                  (.setMinGzipSize 1024)
                  (.setHandler (.getHandler server)))))
 
@@ -45,7 +45,7 @@
           (let [{:keys [jetty]} config]
             (-> this
                 (assoc :server
-                       (-> (protocols/handler handler-provider)
+                       (-> (handler/get-handler handler-provider)
                            (jetty/run-jetty (merge
                                               {:configurator (fn [server]
                                                                (configure-websocket! server)

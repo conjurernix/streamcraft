@@ -5,6 +5,7 @@
             [streamcraft.http-middleware.api :as http-middleware]
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
+            [streamcraft.persistence-xtdb.api :as xtdb]
             [taoensso.timbre :as log]))
 
 (defn start-system! [{::keys [name] :as system}]
@@ -24,6 +25,10 @@
   (component/system-map
     ::name name
     :config config
+    ;; TODO: Antipattern injecting the full config.
+    :xtdb (component/using
+            (xtdb/make-persistence)
+            {:config :config})
     :http-middleware http-middleware/middleware
     :http-electric-handler (http-electric-handler/electric-handler entrypoint config)
     :http-routes routes

@@ -1,9 +1,10 @@
 (ns streamcraft.http-handler.core
-  (:require [reitit.ring :as ring]
-            [com.stuartsierra.component :as component]
-            [streamcraft.protocols.api :as protocols]
+  (:require [com.stuartsierra.component :as component]
+            [reitit.ring :as ring]
+            [streamcraft.protocols.api.http-handler :as handler]
+            [streamcraft.protocols.api.http-router :as router]
             [taoensso.timbre :as log])
-  (:import (streamcraft.protocols.api IHttpRouterProvider)))
+  (:import (streamcraft.protocols.api.http_router IHttpRouterProvider)))
 
 (defrecord ReititHandlerProvider
   [^IHttpRouterProvider router-provider
@@ -14,7 +15,7 @@
       this
       (do (log/info "Starting ReititHandlerProvider")
           (->> router-provider
-               (protocols/router)
+               (router/get-router)
                (ring/ring-handler)
                (assoc this :handler)))))
   (stop [this]
@@ -23,8 +24,8 @@
           (assoc this :handler nil))
       this))
 
-  protocols/IHttpHandlerProvider
-  (handler [_]
+  handler/IHttpHandlerProvider
+  (get-handler [_]
     handler))
 
 (defn make-handler []

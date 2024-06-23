@@ -5,4 +5,5 @@
  :hyperfiddle {:manifest-path                     "admin/public/js/manifest.edn"
                :hyperfiddle.electric/user-version "dev"}
  :nrepl       {:port #long #or [#env NREPL_PORT 7001]
-               :bind #or [#env NREPL_BIND "127.0.0.1"]}}
+               :bind #or [#env NREPL_BIND "127.0.0.1"]}
+ :xtdb        {}}

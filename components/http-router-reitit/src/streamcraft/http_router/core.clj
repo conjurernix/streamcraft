@@ -6,7 +6,7 @@
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
             [ring.util.http-response :as http]
-            [streamcraft.protocols.api :as protocols]
+            [streamcraft.protocols.api.http-router :as router]
             [taoensso.timbre :as log]))
 
 (defn- -make-reitit-router [routes middleware electric-handler {:keys [jetty]}]
@@ -65,9 +65,9 @@
       this))
 
 
-  protocols/IHttpRouterProvider
-  (routes [_this] routes)
-  (router [_this] router))
+  router/IHttpRouterProvider
+  (get-routes [_this] routes)
+  (get-router [_this] router))
 
 (defn make-router []
   (map->ReititRouter {}))
