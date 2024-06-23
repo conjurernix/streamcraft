@@ -1,4 +1,4 @@
-(ns streamwrite.client-base.app.home.views
+(ns streamcraft.client-base.app.home.views
   (:require [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]))
 

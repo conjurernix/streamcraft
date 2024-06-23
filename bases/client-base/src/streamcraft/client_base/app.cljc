@@ -1,9 +1,9 @@
-(ns streamwrite.client-base.app
+(ns streamcraft.client-base.app
   (:require [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]
-            [streamwrite.client-base.app.layout :as layout]
-            [streamwrite.client-base.app.router :as app-router]
-            [streamwrite.frontend-router.api :as frontend-router]))
+            [streamcraft.client-base.app.layout :as layout]
+            [streamcraft.client-base.app.router :as app-router]
+            [streamcraft.frontend-router.api :as frontend-router]))
 
 (e/defn App [ring-request]
   (e/client

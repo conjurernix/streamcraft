@@ -1,7 +1,7 @@
-(ns streamwrite.client-base.app.home.routes
+(ns streamcraft.client-base.app.home.routes
   (:require [hyperfiddle.electric :as e]
-            [streamwrite.client-base.app.home.views :as views]
-            [streamwrite.client-base.app.layout :as layout]))
+            [streamcraft.client-base.app.home.views :as views]
+            [streamcraft.client-base.app.layout :as layout]))
 
 (e/def routes
   (e/client

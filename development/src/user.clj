@@ -6,8 +6,8 @@
             [shadow.cljs.devtools.server :as shadow.server]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]
-            [streamwrite.admin-base.main :as admin]
-            [streamwrite.client-base.main :as client]))
+            [streamcraft.admin-base.main :as admin]
+            [streamcraft.client-base.main :as client]))
 
 (repl/start-nrepl!)
 

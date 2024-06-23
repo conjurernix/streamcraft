@@ -1,10 +1,10 @@
-(ns streamwrite.client-base.app.router
+(ns streamcraft.client-base.app.router
   (:require [hyperfiddle.electric :as e]
-            [streamwrite.frontend-router.api :as frontend-router]
+            [streamcraft.frontend-router.api :as frontend-router]
             [missionary.core :as ms]
-            [streamwrite.client-base.app.layout :as layout]
-            [streamwrite.client-base.app.home.routes :as home.routes]
-            [streamwrite.client-base.app.project.routes :as projects.routes]
+            [streamcraft.client-base.app.layout :as layout]
+            [streamcraft.client-base.app.home.routes :as home.routes]
+            [streamcraft.client-base.app.project.routes :as projects.routes]
             #?@(:cljs [[reitit.frontend :as rf]
                        [reitit.frontend.easy :as rfe]
                        [reitit.coercion.malli :as rcm]])))

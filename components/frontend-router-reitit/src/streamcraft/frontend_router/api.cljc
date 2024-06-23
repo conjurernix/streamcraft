@@ -1,4 +1,4 @@
-(ns streamwrite.frontend-router.api
+(ns streamcraft.frontend-router.api
   (:require [hyperfiddle.electric :as e]
             #?@(:cljs [[missionary.core :as ms]
                        [reitit.frontend :as rf]

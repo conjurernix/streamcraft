@@ -1,9 +1,9 @@
-(ns streamwrite.client-base.app.project.views
+(ns streamcraft.client-base.app.project.views
   (:require [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]
             [conjurernix.electric-franken.api :as ui]
-            [streamwrite.client-base.app.styles :as styles]
-            [streamwrite.frontend-router.api :as frontend-router]
+            [streamcraft.client-base.app.styles :as styles]
+            [streamcraft.frontend-router.api :as frontend-router]
             #?@(:cljs [[reitit.frontend.easy :as rfe]])))
 
 #?(:clj (defonce !projects (atom (->> [{:name        "Intelligent Traffic Management System"

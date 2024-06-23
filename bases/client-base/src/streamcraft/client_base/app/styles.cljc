@@ -1,4 +1,4 @@
-(ns streamwrite.client-base.app.styles
+(ns streamcraft.client-base.app.styles
   (:require [hyperfiddle.electric-dom2 :as dom]))
 
 (defmacro hover-lift []

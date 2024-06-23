@@ -1,7 +1,7 @@
-(ns streamwrite.client-base.app.project.routes
+(ns streamcraft.client-base.app.project.routes
   (:require [hyperfiddle.electric :as e]
             [potpuri.core :as pt]
-            [streamwrite.client-base.app.project.views :as views]))
+            [streamcraft.client-base.app.project.views :as views]))
 
 (e/def routes
   (e/client

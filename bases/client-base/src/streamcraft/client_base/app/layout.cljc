@@ -1,9 +1,9 @@
-(ns streamwrite.client-base.app.layout
+(ns streamcraft.client-base.app.layout
   (:require [conjurernix.electric-franken.api :as ui]
             [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]
-            [streamwrite.frontend-router.api :as frontend-router]
-            [streamwrite.client-base.app.project.views :as projects]
+            [streamcraft.frontend-router.api :as frontend-router]
+            [streamcraft.client-base.app.project.views :as projects]
             #?@(:cljs [[reitit.frontend :as rf]
                        [reitit.frontend.easy :as rfe]])))
 

@@ -1,4 +1,4 @@
-(ns streamwrite.admin-base.app
+(ns streamcraft.admin-base.app
   (:require [hyperfiddle.electric :as e]
             [hyperfiddle.electric-dom2 :as dom]))
 
