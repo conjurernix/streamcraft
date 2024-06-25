@@ -4,10 +4,11 @@
             [hashp.core]
             [shadow.cljs.devtools.api :as shadow.api]
             [shadow.cljs.devtools.server :as shadow.server]
+            [streamcraft.admin-base.main :as admin]
+            [streamcraft.client-base.main :as client]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]
-            [streamcraft.admin-base.main :as admin]
-            [streamcraft.client-base.main :as client]))
+            [datomic.api :as d]))
 
 (repl/start-nrepl!)
 
@@ -51,3 +52,14 @@
 (defn restart-shadow! []
   (stop-shadow!)
   (start-shadow!))
+
+
+(comment
+  (def datomic (:datomic-pro admin-system))
+
+  ;; add a person to datomic
+  (let [{:keys [conn]} datomic
+        person {:first-name "John" :last-name "Doe" :age 30}]
+    (d/transact (:conn datomic) [{:streamcraft.protocols.api.persistence/schema :person
+                                  :streamcraft.protocols.api.persistence/data person}]))
+  )

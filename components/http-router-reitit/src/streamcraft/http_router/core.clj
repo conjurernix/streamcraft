@@ -9,8 +9,8 @@
             [streamcraft.protocols.api.http-router :as router]
             [taoensso.timbre :as log]))
 
-(defn- -make-reitit-router [routes middleware electric-handler {:keys [jetty]}]
-  (let [{:keys [resources-path]} jetty]
+(defn- -make-reitit-router [routes middleware electric-handler config]
+  (let [{:keys [resources-path]} config]
     (ring/router
       (->> routes
            (into [["/app"

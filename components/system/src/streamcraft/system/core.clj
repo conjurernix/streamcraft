@@ -1,10 +1,12 @@
 (ns streamcraft.system.core
   (:require [com.stuartsierra.component :as component]
+            [streamcraft.entity.api :as entity]
             [streamcraft.http-electric-handler.api :as http-electric-handler]
             [streamcraft.http-handler.api :as http-handler]
             [streamcraft.http-middleware.api :as http-middleware]
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
+            [streamcraft.persistence-datomic-pro.api :as datomic-pro]
             [streamcraft.persistence-xtdb.api :as xtdb]
             [taoensso.timbre :as log]))
 
@@ -22,29 +24,37 @@
 
 (defn make-system [{:keys [name entrypoint routes config]}]
   (log/info "Initializing system " name)
-  (component/system-map
-    ::name name
-    :config config
-    ;; TODO: Antipattern injecting the full config.
-    :xtdb (component/using
-            (xtdb/make-persistence)
-            {:config :config})
-    :http-middleware http-middleware/middleware
-    :http-electric-handler (http-electric-handler/electric-handler entrypoint config)
-    :http-routes routes
-    :http-router (component/using
-                   (http-router/make-router)
-                   {:middleware       :http-middleware
-                    :electric-handler :http-electric-handler
-                    :routes           :http-routes
-                    :config           :config})
-    :http-handler (component/using
-                    (http-handler/make-handler)
-                    {:router-provider :http-router
-                     :config          :config})
-    :http-server (component/using
-                   (http-server/make-server)
-                   {:handler-provider :http-handler
-                    :config           :config})))
+  (let [{:keys [xtdb jetty datomic hyperfiddle]} config]
+    (component/system-map
+      ::name name
+      :xtdb-config xtdb
+      :jetty-config jetty
+      :datomic-config datomic
+      :registry (entity/make-registry)
+      :xtdb (component/using
+              (xtdb/make-persistence)
+              {:registry :registry
+               :config   :xtdb-config})
+      :datomic-pro (component/using
+                     (datomic-pro/make-persistence)
+                     {:registry :registry
+                      :config   :datomic-config})
+      :http-middleware http-middleware/middleware
+      :http-electric-handler (http-electric-handler/electric-handler entrypoint {:jetty       jetty
+                                                                                 :hyperfiddle hyperfiddle})
+      :http-routes routes
+      :http-router (component/using
+                     (http-router/make-router)
+                     {:middleware       :http-middleware
+                      :electric-handler :http-electric-handler
+                      :routes           :http-routes
+                      :config           :jetty-config})
+      :http-handler (component/using
+                      (http-handler/make-handler)
+                      {:router-provider :http-router})
+      :http-server (component/using
+                     (http-server/make-server)
+                     {:handler-provider :http-handler
+                      :config           :jetty-config}))))
 
 

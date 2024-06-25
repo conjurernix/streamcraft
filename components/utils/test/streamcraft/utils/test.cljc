@@ -1,26 +1,11 @@
 (ns streamcraft.utils.test
   (:require [com.stuartsierra.component :as component]
-            [malli.core :as m]
             [malli.generator :as mg]
-            [malli.util :as mu]
             [streamcraft.entity.api :as entity]
-            [streamcraft.persistence-xtdb.api :as db.xtdb])
+            [streamcraft.persistence-xtdb.api :as db.xtdb]
+            [streamcraft.persistence-datomic-pro.api :as db.datomic-pro]
+            )
   #?(:clj (:import (clojure.lang ExceptionInfo))))
-
-; Entity
-(defn set-up-registry [registry]
-  (entity/init-registry!)
-  (swap! entity/registry merge registry))
-
-(defn tear-down-registry []
-  (reset! entity/registry (merge (m/default-schemas)
-                                 (mu/schemas))))
-
-(defn with-registry [registry]
-  (fn [f]
-    (set-up-registry registry)
-    (f)
-    (tear-down-registry)))
 
 (defn gen-entity [schema]
   (mg/generate schema))
@@ -29,6 +14,16 @@
 
 (defn fresh-xtdb-persistence []
   (db.xtdb/make-persistence))
+
+; Datomic
+
+(defn fresh-datomic-pro-persistence []
+  (db.datomic-pro/make-persistence))
+
+; Malli Registry
+
+(defn fresh-entity-registry []
+  (entity/make-registry))
 
 ; System
 
@@ -46,3 +41,4 @@
      (catch ExceptionInfo e#
        {:msg  (ex-message e#)
         :data (ex-data e#)})))
+

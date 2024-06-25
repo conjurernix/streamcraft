@@ -1,4 +1,4 @@
-(ns streamcraft.http-router.api-test
+(ns streamcraft.frontend-router.api-test
   (:require [clojure.test :refer :all]))
 
 (deftest dummy-test

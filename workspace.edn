@@ -6,9 +6,9 @@
                         :auto-add false}
  :tag-patterns         {:stable  "stable-*"
                         :release "v[0-9]*"}
- ;:test
- ;{:create-test-runner
- ; [org.corfield.external-test-runner.interface/create]}
+ :test
+ {:create-test-runner
+  [org.corfield.external-test-runner.interface/create]}
  :projects             {"development" {:alias "dev"}
                         "admin"       {:alias "admin"}
                         "client"      {:alias "client"}}}

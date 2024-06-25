@@ -42,15 +42,14 @@
     (if server
       this
       (do (log/info "Starting JettyHttpServer")
-          (let [{:keys [jetty]} config]
-            (-> this
-                (assoc :server
-                       (-> (handler/get-handler handler-provider)
-                           (jetty/run-jetty (merge
-                                              {:configurator (fn [server]
-                                                               (configure-websocket! server)
-                                                               (add-gzip-handler! server))}
-                                              jetty)))))))))
+          (-> this
+              (assoc :server
+                     (-> (handler/get-handler handler-provider)
+                         (jetty/run-jetty (merge
+                                            {:configurator (fn [server]
+                                                             (configure-websocket! server)
+                                                             (add-gzip-handler! server))}
+                                            config))))))))
   (stop [this]
     (if server
       (do

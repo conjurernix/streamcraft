@@ -6,4 +6,5 @@
                :hyperfiddle.electric/user-version "dev"}
  :nrepl       {:port #long #or [#env NREPL_PORT 7002]
                :bind #or [#env NREPL_BIND "127.0.0.1"]}
- :xtdb {}}
+ :xtdb        {}
+ :datomic     {:uri "datomic:mem://streamcraft"}}

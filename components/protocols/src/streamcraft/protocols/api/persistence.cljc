@@ -1,6 +1,8 @@
 (ns streamcraft.protocols.api.persistence)
 
 (defprotocol IPersistence
+  (prepare [this schema data]
+    "Prepares the data for persistence. This can include validation, normalization, etc.")
   (fetch [this schema id]
     "Fetch a single entity by id.")
   (search [this schema] [this schema {:keys [pull where] :as opts}]

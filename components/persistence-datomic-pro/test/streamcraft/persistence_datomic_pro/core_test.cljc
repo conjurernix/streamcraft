@@ -1,9 +1,8 @@
-(ns streamcraft.persistence-xtdb.core-test
+(ns streamcraft.persistence-datomic-pro.core-test
   (:require [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
-            [streamcraft.entity.api :as-alias entity]
+            [streamcraft.entity.api :as entity]
             [streamcraft.protocols.api.entity-registry :as er]
-            [streamcraft.protocols.api.persistence :as persistence]
             [streamcraft.utils.test :refer :all]
             [streamcraft.utils.test.persistence :refer :all]))
 
@@ -16,19 +15,15 @@
 
 (use-fixtures :each (with-system
                       (component/system-map
-                        :xtdb-config {}
+                        :datomic-config {:uri "datomic:mem://test"}
                         :registry (-> (fresh-entity-registry)
                                       (er/merge-registry registry))
                         :persistence (component/using
-                                       (fresh-xtdb-persistence)
+                                       (fresh-datomic-pro-persistence)
                                        {:registry :registry
-                                        :config   :xtdb-config}))))
+                                        :config   :datomic-config}))))
 
 (deftest fetch--test
-  #_(persistence-fetch-tests))
+  (persistence-fetch-tests))
 
-#_(testing "Trying to fetch using a random-id should throw(?)"
-    (is (= {}
-           (catch-thrown-info
-             (-> persistence
-                 (persistence/fetch :person (random-uuid)))))))
+
