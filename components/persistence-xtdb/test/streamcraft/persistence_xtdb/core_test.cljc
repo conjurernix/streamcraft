@@ -17,8 +17,8 @@
 (use-fixtures :each (with-system
                       (component/system-map
                         :xtdb-config {}
-                        :registry (-> (fresh-entity-registry)
-                                      (er/merge-registry registry))
+                        :registry (doto (fresh-entity-registry)
+                                    (er/merge-registry registry))
                         :persistence (component/using
                                        (fresh-xtdb-persistence)
                                        {:registry :registry

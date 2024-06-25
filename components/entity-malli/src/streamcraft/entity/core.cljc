@@ -36,7 +36,7 @@
   (start [this]
     (log/info "Starting MalliEntityRegistry")
     this)
-  (stop [this]
+  (stop [_]
     (log/info "Stopping MalliEntityRegistry")
     (init-registry!))
   er/EntityRegistry

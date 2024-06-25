@@ -16,8 +16,8 @@
 (use-fixtures :each (with-system
                       (component/system-map
                         :datomic-config {:uri "datomic:mem://test"}
-                        :registry (-> (fresh-entity-registry)
-                                      (er/merge-registry registry))
+                        :registry (doto (fresh-entity-registry)
+                                    (er/merge-registry registry))
                         :persistence (component/using
                                        (fresh-datomic-pro-persistence)
                                        {:registry :registry

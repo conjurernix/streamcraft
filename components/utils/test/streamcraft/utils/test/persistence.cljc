@@ -1,14 +1,15 @@
 (ns streamcraft.utils.test.persistence
   (:require [clojure.test :refer [is testing]]
+            [streamcraft.protocols.api.entity-registry :as er]
             [streamcraft.protocols.api.persistence :as persistence]
             [streamcraft.utils.test :refer :all]))
 
 (defn persistence-fetch-tests []
-  (let [{:keys [persistence]} *system*
+  (let [{:keys [persistence registry]} *system*
         person-id (random-uuid)
-        person (-> :person
-                   (gen-entity)
-                   (->> (persistence/prepare persistence :person)))]
+        person (->> :person
+                    (er/generate registry)
+                    (persistence/prepare persistence :person))]
     ; TODO: Fix blocking forever for XTDBv2
     (persistence/persist! persistence :person person)
     (testing "Inserted random person should be fetch-able"

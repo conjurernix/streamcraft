@@ -1,14 +1,9 @@
 (ns streamcraft.utils.test
   (:require [com.stuartsierra.component :as component]
-            [malli.generator :as mg]
             [streamcraft.entity.api :as entity]
             [streamcraft.persistence-xtdb.api :as db.xtdb]
-            [streamcraft.persistence-datomic-pro.api :as db.datomic-pro]
-            )
+            [streamcraft.persistence-datomic-pro.api :as db.datomic-pro])
   #?(:clj (:import (clojure.lang ExceptionInfo))))
-
-(defn gen-entity [schema]
-  (mg/generate schema))
 
 ; Xtdb
 
