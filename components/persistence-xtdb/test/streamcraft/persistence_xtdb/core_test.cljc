@@ -25,7 +25,7 @@
                                         :config   :xtdb-config}))))
 
 (deftest fetch--test
-  #_(persistence-fetch-tests))
+  (persistence-fetch-tests))
 
 #_(testing "Trying to fetch using a random-id should throw(?)"
     (is (= {}

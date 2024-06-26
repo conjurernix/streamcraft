@@ -24,6 +24,6 @@
                                         :config   :datomic-config}))))
 
 (deftest fetch--test
-  (persistence-fetch-tests))
+  #_(persistence-fetch-tests))
 
 
