@@ -15,7 +15,7 @@
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
-            [streamcraft.persistence-xtdb.api :as xtdb]
+            ;[streamcraft.persistence-xtdb.api :as xtdb]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]))
 
@@ -46,10 +46,10 @@
                          (entity/make-registry)
                          [:schemas])
 
-             :xtdb (component/using
-                     (xtdb/make-persistence)
-                     {:registry :registry
-                      :config   :xtdb-config})
+             ;:xtdb (component/using
+             ;        (xtdb/make-persistence)
+             ;        {:registry :registry
+             ;         :config   :xtdb-config})
 
              :datomic-pro (component/using
                             (datomic-pro/make-persistence)
