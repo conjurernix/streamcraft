@@ -4,7 +4,6 @@
             [streamcraft.protocols.api.persistence :as persistence]
             [taoensso.timbre :as log]))
 
-(def uri "datomic:mem://example")
 
 (defrecord DatomicProPersistence [config registry conn]
   component/Lifecycle
@@ -16,10 +15,12 @@
           (assoc :conn (d/connect uri)))))
   (stop [this]
     (log/info "Stopping DatomicProPersistence")
-    (d/delete-database uri)
-    (-> this
-        (assoc :conn nil)
-        (assoc :registry nil)))
+    (let [{:keys [uri]} config]
+      (d/delete-database uri)
+      (-> this
+          (assoc :config nil)
+          (assoc :conn nil)
+          (assoc :registry nil))))
 
   persistence/IPersistence
   (prepare [_this _schema data]

@@ -38,6 +38,7 @@
                streamcraft/system                      {:local/root "components/system"}
                streamcraft/utils                       {:local/root "components/utils"}
                streamcraft/entity                      {:local/root "components/entity-malli"}
+               streamcraft/domain                      {:local/root "components/domain"}
 
                ;;; Http Server
                streamcraft/http-middleware             {:local/root "components/http-middleware-reitit"}

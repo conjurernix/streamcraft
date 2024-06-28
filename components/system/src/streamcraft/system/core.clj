@@ -1,5 +1,6 @@
 (ns streamcraft.system.core
   (:require [com.stuartsierra.component :as component]
+            [streamcraft.domain.api :as domain]
             [streamcraft.entity.api :as entity]
             [streamcraft.http-electric-handler.api :as http-electric-handler]
             [streamcraft.http-handler.api :as http-handler]
@@ -30,7 +31,10 @@
       :xtdb-config xtdb
       :jetty-config jetty
       :datomic-config datomic
-      :registry (entity/make-registry)
+      :schemas domain/schemas
+      :registry (component/using
+                  (entity/make-registry)
+                  [:schemas])
       :xtdb (component/using
               (xtdb/make-persistence)
               {:registry :registry

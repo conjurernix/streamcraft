@@ -1,4 +1,5 @@
 (ns streamcraft.frontend-router.api
+  (:refer-clojure :exclude [name])
   (:require [hyperfiddle.electric :as e]
             #?@(:cljs [[missionary.core :as ms]
                        [reitit.frontend :as rf]

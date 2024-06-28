@@ -7,7 +7,7 @@
             [xtdb.node :as xtn]))
 
 (defn- -fetch-q [table id]
-  (xt/template (from ~table [* {:xt/id id}])))
+  (xt/template (from ~table [* {:xt/id ~id}])))
 
 
 (defrecord XtdbPersistence [config registry node]

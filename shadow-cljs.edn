@@ -12,10 +12,10 @@
                                    ;; https://github.com/arttuka/reagent-material-ui/#mui-component-names-with-shadow-cljs
                                    :anon-fn-naming-policy :unmapped
                                    ;; Redirecting node_modules to the one in development project for dev build
-                                   :js-package-dirs ["development/node_modules"]}
+                                   :js-package-dirs       ["development/node_modules"]}
                 :output-dir       "development/resources/admin/public/js"
                 :asset-path       "/js"
-                :modules          {:main {:entries [streamwrite.admin-base.dev.main] :init-fn streamwrite.admin-base.dev.main/start!}}
+                :modules          {:main {:entries [streamcraft.admin-base.dev.main] :init-fn streamcraft.admin-base.dev.main/start!}}
                 :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
                                    (shadow.cljs.build-report/hook {:output-to "target/admin/build_report.html"})]
                 :closure-defines  {goog.DEBUG                                        true
@@ -23,7 +23,7 @@
   :admin-prod  {:target            :browser
                 :output-dir        "projects/admin/resources/admin/public/js"
                 :asset-path        "/js"
-                :modules           {:main {:entries [streamwrite.admin-base.main] :init-fn streamwrite.admin-base.main/start!}}
+                :modules           {:main {:entries [streamcraft.admin-base.main] :init-fn streamcraft.admin-base.main/start!}}
                 :module-hash-names true}
   :client-dev  {:target           :browser
                 :devtools         {:loader-mode :default
@@ -37,10 +37,10 @@
                                    ;; https://github.com/arttuka/reagent-material-ui/#mui-component-names-with-shadow-cljs
                                    :anon-fn-naming-policy :unmapped
                                    ;; Redirecting node_modules to the one in development project for dev build
-                                   :js-package-dirs ["development/node_modules"]}
+                                   :js-package-dirs       ["development/node_modules"]}
                 :output-dir       "development/resources/client/public/js"
                 :asset-path       "/js"
-                :modules          {:main {:entries [streamwrite.client-base.dev.main] :init-fn streamwrite.client-base.dev.main/start!}}
+                :modules          {:main {:entries [streamcraft.client-base.dev.main] :init-fn streamcraft.client-base.dev.main/start!}}
                 :build-hooks      [(hyperfiddle.electric.shadow-cljs.hooks/reload-clj)
                                    (shadow.cljs.build-report/hook {:output-to "target/client/build_report.html"})]
                 :closure-defines  {goog.DEBUG                                        true
@@ -48,5 +48,5 @@
   :client-prod {:target            :browser
                 :output-dir        "projects/client/resources/client/public/js"
                 :asset-path        "/js"
-                :modules           {:main {:entries [streamwrite.client-base.main] :init-fn streamwrite.client-base.main/start!}}
+                :modules           {:main {:entries [streamcraft.client-base.main] :init-fn streamcraft.client-base.main/start!}}
                 :module-hash-names true}}}

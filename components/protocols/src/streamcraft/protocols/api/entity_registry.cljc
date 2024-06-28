@@ -1,11 +1,10 @@
-(ns streamcraft.protocols.api.entity-registry)
+(ns streamcraft.protocols.api.entity-registry
+  (:refer-clojure :exclude [name]))
 
 (defprotocol EntityRegistry
-  (get-registry [this])
-  (get-from-registry [this key])
-  (add-to-registry! [this key schema])
+  (get-registry [this]
+    "")
   (merge-registry [this registry])
-  (entity? [this schema])
   (validate [this schema data])
   (generate [this schema])
   (name [this schema]))
