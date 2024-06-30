@@ -14,7 +14,7 @@
     [:last-name :string]
     [:age :int]]})
 
-(use-fixtures :each (with-system
+(use-fixtures :each (with-system-fixture
                       (component/system-map
                         :xtdb-config {}
                         :registry (doto (fresh-entity-registry)

@@ -1,34 +1,47 @@
 (ns streamcraft.utils.test
   (:require [com.stuartsierra.component :as component]
             [streamcraft.entity.api :as entity]
-            [streamcraft.persistence-xtdb.api :as db.xtdb]
-            [streamcraft.persistence-datomic-pro.api :as db.datomic-pro])
+    ;[streamcraft.persistence-xtdb.api :as db.xtdb]
+            [streamcraft.persistence-datomic-pro.api :as db.datomic-pro]
+            [streamcraft.migration-datomic.api :as migration.datomic]
+            [streamcraft.entity-persistence-schema-transformer-malli-datomic.api :as epst.malli.datomic])
   #?(:clj (:import (clojure.lang ExceptionInfo))))
 
 ; Xtdb
 
-(defn fresh-xtdb-persistence []
-  (db.xtdb/make-persistence))
+;(defn fresh-xtdb-persistence []
+;  (db.xtdb/make-persistence))
 
 ; Datomic
 
 (defn fresh-datomic-pro-persistence []
   (db.datomic-pro/make-persistence))
 
+(defn fresh-datomic-migration []
+  (migration.datomic/make-migration))
+
+(defn fresh-datomic-entity-persistence-schema-transformer []
+  (epst.malli.datomic/make-entity-persistence-schema-transformer))
+
 ; Malli Registry
 
 (defn fresh-entity-registry []
   (entity/make-registry))
 
+
 ; System
 
 (def ^:dynamic *system* nil)
 
-(defn with-system [system]
+(defmacro with-system [system body]
+  `(binding [*system* (component/start-system ~system)]
+     ~@body
+     (component/stop-system *system*)))
+
+(defn with-system-fixture [system]
   (fn [f]
-    (binding [*system* (component/start-system system)]
-      (f)
-      (component/stop-system system))))
+    (with-system system
+      (f))))
 
 (defmacro catch-thrown-info [f]
   `(try

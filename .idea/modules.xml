@@ -10,12 +10,14 @@
       <module fileurl="file://$PROJECT_DIR$/components/config-aero/config-aero.iml" filepath="$PROJECT_DIR$/components/config-aero/config-aero.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/domain/domain.iml" filepath="$PROJECT_DIR$/components/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/entity-malli/entity-malli.iml" filepath="$PROJECT_DIR$/components/entity-malli/entity-malli.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/entity-persistence-schema-transformer-datomic/entity-persistence-schema-transformer-datomic.iml" filepath="$PROJECT_DIR$/components/entity-persistence-schema-transformer-datomic/entity-persistence-schema-transformer-datomic.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" filepath="$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-middleware-reitit/http-middleware-reitit.iml" filepath="$PROJECT_DIR$/components/http-middleware-reitit/http-middleware-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" filepath="$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" filepath="$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/migration-datomic/migration-datomic.iml" filepath="$PROJECT_DIR$/components/migration-datomic/migration-datomic.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/persistence-datomic-pro/persistence-datomic-pro.iml" filepath="$PROJECT_DIR$/components/persistence-datomic-pro/persistence-datomic-pro.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/protocols/protocols.iml" filepath="$PROJECT_DIR$/components/protocols/protocols.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/repl/repl.iml" filepath="$PROJECT_DIR$/bases/repl/repl.iml" />
