@@ -1,6 +1,7 @@
 (ns streamcraft.migration-datomic.core-test
   (:require [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
+            [streamcraft.entity.api :as-alias entity]
             [streamcraft.protocols.api.migration :as migration]
             [streamcraft.utils.test :refer :all]
             [streamcraft.utils.test.persistence :refer :all]))

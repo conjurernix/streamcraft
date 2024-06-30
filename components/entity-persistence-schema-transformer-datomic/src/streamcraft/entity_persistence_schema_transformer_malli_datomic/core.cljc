@@ -36,8 +36,8 @@
         (assoc :registry nil)))
 
   schema/IEntityPersistenceSchemaTransformer
-  (persistence-schema [this schema]
-    (or (malli-schema->datomic-valuetype (er/of-type schema))
+  (persistence-schema [_this schema]
+    (or (malli-schema->datomic-valuetype (er/of-type registry schema))
         (throw (ex-info "Can't convert schema to Datomic schema" {:schema schema})))))
 
 (defn make-entity-persistence-schema-transformer []

@@ -1,7 +1,9 @@
 (ns streamcraft.migration-datomic.core
   (:require [com.stuartsierra.component :as component]
+            [streamcraft.entity.api :as-alias entity]
             [streamcraft.protocols.api.entity-registry :as er]
             [streamcraft.protocols.api.migration :as migration]
+            [streamcraft.protocols.api.persistence :as-alias persistence]
             [streamcraft.protocols.api.schema :as schema]
             [taoensso.timbre :as log]))
 
