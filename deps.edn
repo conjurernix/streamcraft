@@ -51,7 +51,7 @@
                ;;; Database
                ;streamcraft/persistence-xtdb            {:local/root "components/persistence-xtdb"}
                streamcraft/persistence-datomic-pro                       {:local/root "components/persistence-datomic-pro"}
-               streamcraft/entity-persistence-schema-transformer-datomic {:local/root "components/entity-persistence-schema-transformer-datomic"}
+               streamcraft/persistence-schema-transformer-malli-datomic {:local/root "components/persistence-schema-transformer-malli-datomic"}
                streamcraft/migration-datomic                             {:local/root "components/migration-datomic"}
                ;;; Frontend
                streamcraft/frontend-router                               {:local/root "components/frontend-router-reitit"}

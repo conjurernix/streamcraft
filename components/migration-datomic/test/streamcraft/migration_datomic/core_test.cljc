@@ -19,12 +19,13 @@
                         :registry (component/using
                                     (fresh-entity-registry)
                                     [:schemas])
-                        :epst (component/using
-                                (fresh-datomic-entity-persistence-schema-transformer)
+                        :persistence-transformer
+                        (component/using
+                                (fresh-malli-datomic-persistence-schema-transformer)
                                 [:registry])
                         :migration (component/using
                                      (fresh-datomic-migration)
-                                     [:registry :epst]))))
+                                     [:registry :persistence-transformer]))))
 
 (deftest gen-migration--test
   (testing "Generating migration"

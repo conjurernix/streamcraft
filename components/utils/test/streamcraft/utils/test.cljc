@@ -4,7 +4,7 @@
     ;[streamcraft.persistence-xtdb.api :as db.xtdb]
             [streamcraft.persistence-datomic-pro.api :as db.datomic-pro]
             [streamcraft.migration-datomic.api :as migration.datomic]
-            [streamcraft.entity-persistence-schema-transformer-malli-datomic.api :as epst.malli.datomic])
+            [streamcraft.persistence-schema-transformer-malli-datomic.api :as st.p.m.d])
   #?(:clj (:import (clojure.lang ExceptionInfo))))
 
 ; Xtdb
@@ -20,8 +20,8 @@
 (defn fresh-datomic-migration []
   (migration.datomic/make-migration))
 
-(defn fresh-datomic-entity-persistence-schema-transformer []
-  (epst.malli.datomic/make-entity-persistence-schema-transformer))
+(defn fresh-malli-datomic-persistence-schema-transformer []
+  (st.p.m.d/make-persistence-schema-transformer))
 
 ; Malli Registry
 
