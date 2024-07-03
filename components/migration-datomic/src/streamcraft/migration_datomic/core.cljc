@@ -4,7 +4,7 @@
             [streamcraft.protocols.api.entity-registry :as er]
             [streamcraft.protocols.api.migration :as migration]
             [streamcraft.protocols.api.persistence :as-alias persistence]
-            [streamcraft.protocols.api.schema-transformer.persistence :as st.p]
+            [streamcraft.protocols.api.transformer.schema :as ts]
             [taoensso.timbre :as log]))
 
 (defrecord DatomicMigration [registry persistence-transformer]
@@ -43,7 +43,7 @@
 
                        (cond-> {:db/ident       key
                                 :db/cardinality cardinality
-                                :db/valueType   (st.p/transform persistence-transformer type)}
+                                :db/valueType   (ts/transform persistence-transformer type)}
 
                          (some? doc) (assoc :db/doc doc)))))))))
 

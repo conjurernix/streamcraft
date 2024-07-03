@@ -1,7 +1,7 @@
 (ns streamcraft.persistence-schema-transformer-malli-datomic.core
   (:require [com.stuartsierra.component :as component]
             [streamcraft.protocols.api.entity-registry :as er]
-            [streamcraft.protocols.api.schema-transformer.persistence :as st.p]
+            [streamcraft.protocols.api.transformer.schema :as ts]
             [taoensso.timbre :as log]))
 
 (defn malli-schema->datomic-valuetype
@@ -52,7 +52,7 @@
     (-> this
         (assoc :registry nil)))
 
-  st.p/IPersistenceSchemaTransformer
+  ts/ISchemaTransformer
   (transform [_this schema]
     (or (malli-schema->datomic-valuetype (er/of-type registry schema))
         (throw (ex-info "Can't convert schema to persistence schema" {:schema schema})))))
