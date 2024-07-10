@@ -33,10 +33,11 @@
 
 (def ^:dynamic *system* nil)
 
-(defmacro with-system [system body]
+(defmacro with-system [system & body]
   `(binding [*system* (component/start-system ~system)]
      ~@body
      (component/stop-system *system*)))
+
 
 (defn with-system-fixture [system]
   (fn [f]

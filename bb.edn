@@ -2,6 +2,6 @@
  :tasks
  {:requires      ([babashka.fs :as fs])
 
-  dev            (clojure "-A:dev:defaults")
+  dev            (clojure "-A:dev:defaults:test")
   test-dev       (clojure "-M:poly test :dev")
   test-dev-watch (clojure "-M:poly test :dev")}}

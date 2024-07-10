@@ -21,9 +21,7 @@
                                        [:registry]))))
 
 (deftest transform--test
-  (is (= 1 2))
   (testing "Transforming a simple schema to Datomic schema"
-    (is (= 1 2))
     (let [{:keys [transformer]} *system*]
       (is (= [{:db/ident       :simple-person/name
                :db/valueType   :db.type/string
