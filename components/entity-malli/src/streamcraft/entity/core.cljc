@@ -25,7 +25,7 @@
 
   er/EntityRegistry
 
-  (get-registry [_] schemas)
+  (get-registry [this] schemas)
 
   (get-entities [this]
     (->> schemas
@@ -53,12 +53,21 @@
     (m/entries schema {:registry schemas}))
 
   (of-type [_this schema]
-    ; TODO: This is not ideal, but it works for now.
-    (if (and (vector? schema)
-             (not= (m/type schema) :map))
+    ; If a collection schema (vector, set, sequential), return the first child schema
+    (if (contains? #{:vector :set :sequential} (m/type schema))
       (-> schema
           (m/children)
-          (first))))
+          (first)
+          (m/type))
+      (m/type schema)))
+
+  (cardinality [this schema]
+    (or (-> this
+            (er/properties schema)
+            ::entity/cardinality)
+        (if (contains? #{:vector :set :sequential} (m/type schema))
+          :many
+          :one)))
 
   (entity? [_this schema]
     (-> schema
