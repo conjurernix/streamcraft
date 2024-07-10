@@ -9,57 +9,57 @@
               :extra-paths ["development/src" "development/resources"]
               :extra-deps
 
-              {org.clojure/clojure                                       {:mvn/version "1.11.3"}
-               org.clojure/clojurescript                                 {:mvn/version "1.11.132"}
-               org.clojure/tools.namespace                               {:mvn/version "1.5.0"}
-               com.datomic/peer                                          {:mvn/version "1.0.7075"}
-               com.hyperfiddle/electric                                  {:mvn/version "v2-alpha-540-ga4699532"}
+              {org.clojure/clojure                                      {:mvn/version "1.11.3"}
+               org.clojure/clojurescript                                {:mvn/version "1.11.132"}
+               org.clojure/tools.namespace                              {:mvn/version "1.5.0"}
+               com.datomic/peer                                         {:mvn/version "1.0.7075"}
+               com.hyperfiddle/electric                                 {:mvn/version "v2-alpha-540-ga4699532"}
                ;com.xtdb/xtdb-api                       {:mvn/version "2.0.0-SNAPSHOT"}
                ;com.xtdb/xtdb-core                      {:mvn/version "2.0.0-SNAPSHOT"}
-               io.github.conjurernix/electric-franken                    {:mvn/version "0.0.10"}
-               thheller/shadow-cljs                                      {:mvn/version "2.28.8"}
-               com.fasterxml.jackson.core/jackson-core                   {:mvn/version "2.17.1"}
-               metosin/potpuri                                           {:mvn/version "0.5.3"}
-               metosin/malli                                             {:mvn/version "0.16.1"}
-               net.clojars.unexpectedness/weaving                        {:mvn/version "0.2.5"}
+               io.github.conjurernix/electric-franken                   {:mvn/version "0.0.10"}
+               thheller/shadow-cljs                                     {:mvn/version "2.28.8"}
+               com.fasterxml.jackson.core/jackson-core                  {:mvn/version "2.17.1"}
+               metosin/potpuri                                          {:mvn/version "0.5.3"}
+               metosin/malli                                            {:mvn/version "0.16.1"}
+               net.clojars.unexpectedness/weaving                       {:mvn/version "0.2.5"}
                ; Devenv tools
-               hashp/hashp                                               {:mvn/version "0.2.2"}
-               binaryage/devtools                                        {:mvn/version "1.0.7"}
+               hashp/hashp                                              {:mvn/version "0.2.2"}
+               binaryage/devtools                                       {:mvn/version "1.0.7"}
 
                ; Streamcraft (Framework components)
                ;; Bases
-               streamcraft/bootstrap                                     {:local/root "bases/bootstrap"}
-               streamcraft/repl                                          {:local/root "bases/repl"}
-               streamcraft/web-app                                       {:local/root "bases/web-app"}
+               streamcraft/bootstrap                                    {:local/root "bases/bootstrap"}
+               streamcraft/repl                                         {:local/root "bases/repl"}
+               streamcraft/web-app                                      {:local/root "bases/web-app"}
 
                ;; Components
-               streamcraft/config                                        {:local/root "components/config-aero"}
-               streamcraft/protocols                                     {:local/root "components/protocols"}
-               streamcraft/system                                        {:local/root "components/system"}
-               streamcraft/utils                                         {:local/root "components/utils"}
-               streamcraft/entity                                        {:local/root "components/entity-malli"}
-               streamcraft/domain                                        {:local/root "components/domain"}
+               streamcraft/config                                       {:local/root "components/config-aero"}
+               streamcraft/protocols                                    {:local/root "components/protocols"}
+               streamcraft/system                                       {:local/root "components/system"}
+               streamcraft/utils                                        {:local/root "components/utils"}
+               streamcraft/entity                                       {:local/root "components/entity-malli"}
+               streamcraft/domain                                       {:local/root "components/domain"}
 
 
                ;;; Http Server
-               streamcraft/http-middleware                               {:local/root "components/http-middleware-reitit"}
-               streamcraft/http-electric-handler                         {:local/root "components/http-electric-handler-reitit"}
-               streamcraft/http-handler                                  {:local/root "components/http-handler-reitit"}
-               streamcraft/http-server                                   {:local/root "components/http-server-jetty"}
-               streamcraft/http-router                                   {:local/root "components/http-router-reitit"}
+               streamcraft/http-middleware                              {:local/root "components/http-middleware-reitit"}
+               streamcraft/http-electric-handler                        {:local/root "components/http-electric-handler-reitit"}
+               streamcraft/http-handler                                 {:local/root "components/http-handler-reitit"}
+               streamcraft/http-server                                  {:local/root "components/http-server-jetty"}
+               streamcraft/http-router                                  {:local/root "components/http-router-reitit"}
 
                ;;; Database
                ;streamcraft/persistence-xtdb            {:local/root "components/persistence-xtdb"}
-               streamcraft/persistence-datomic-pro                       {:local/root "components/persistence-datomic-pro"}
+               streamcraft/persistence-datomic-pro                      {:local/root "components/persistence-datomic-pro"}
                streamcraft/persistence-schema-transformer-malli-datomic {:local/root "components/persistence-schema-transformer-malli-datomic"}
-               streamcraft/migration-datomic                             {:local/root "components/migration-datomic"}
+               streamcraft/migration-datomic                            {:local/root "components/migration-datomic"}
                ;;; Frontend
-               streamcraft/frontend-router                               {:local/root "components/frontend-router-reitit"}
+               streamcraft/frontend-router                              {:local/root "components/frontend-router-reitit"}
 
                ; Streamwrite (App specific components)
                ;; Bases
-               streamwrite/admin-base                                    {:local/root "bases/admin-base"}
-               streamwrite/client-base                                   {:local/root "bases/client-base"}
+               streamwrite/admin-base                                   {:local/root "bases/admin-base"}
+               streamwrite/client-base                                  {:local/root "bases/client-base"}
 
                ;; Components
 
@@ -67,7 +67,12 @@
 
              :defaults  {:extra-deps {}}
 
-             :test      {:extra-paths ["components/utils/test"]}
+             :test      {:extra-paths ["components/utils/test"]
+                         :extra-deps  {polylith-kaocha/kaocha-wrapper
+                                       {:git/url   "https://github.com/imrekoszo/polylith-kaocha"
+                                        :git/tag   "v0.8.4"
+                                        :git/sha   "f096de8"
+                                        :deps/root "projects/kaocha-wrapper"}}}
              :jdm-opts  [:xtdb-opts]
              :xtdb-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED" "-Dio.netty.tryReflectionSetAccessible=true"]
              :poly      {:jvm-opts   [
@@ -75,6 +80,8 @@
                                       "-Dpoly.test.jvm.opts=:jdm-opts"]
                          :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
                          :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}
-                                      io.github.seancorfield/polylith-external-test-runner
-                                      {:git/tag   "v0.5.0" :git/sha "d93a147"
-                                       :deps/root "projects/runner"}}}}}
+                                      polylith-kaocha/test-runner
+                                      {:git/url   "https://github.com/imrekoszo/polylith-kaocha"
+                                       :git/tag   "v0.8.4"
+                                       :git/sha   "f096de8"
+                                       :deps/root "projects/test-runner"}}}}}

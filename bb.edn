@@ -1,6 +1,7 @@
 {:paths ["scripts"]
  :tasks
- {:requires ([babashka.fs :as fs])
+ {:requires      ([babashka.fs :as fs])
 
-  dev       (clojure "-A:dev:defaults")
-  test-dev  (clojure "-M:poly test :dev")}}
+  dev            (clojure "-A:dev:defaults")
+  test-dev       (clojure "-M:poly test :dev")
+  test-dev-watch (clojure "-M:poly test :dev")}}

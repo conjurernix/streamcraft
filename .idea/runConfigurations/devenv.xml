@@ -4,7 +4,7 @@
     <option name="displayName" value="devenv" />
     <option name="execution" value="DEPS" />
     <module name="streamwrite" />
-    <option name="options" value="-A:dev" />
+    <option name="options" value="-A:dev:defaults:test" />
     <option name="profiles" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">

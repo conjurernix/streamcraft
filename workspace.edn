@@ -3,12 +3,10 @@
  :default-profile-name "default"
  :compact-views        #{}
  :vcs                  {:name     "git"
-                        :auto-add false}
+                        :auto-add true}
  :tag-patterns         {:stable  "stable-*"
                         :release "v[0-9]*"}
- :test
- {:create-test-runner
-  [org.corfield.external-test-runner.interface/create]}
+ :test                 {:create-test-runner polylith-kaocha.test-runner/create}
  :projects             {"development" {:alias "dev"}
                         "admin"       {:alias "admin"}
                         "client"      {:alias "client"}}}
