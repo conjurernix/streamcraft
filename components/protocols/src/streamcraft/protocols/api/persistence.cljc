@@ -1,6 +1,10 @@
 (ns streamcraft.protocols.api.persistence)
 
 (defprotocol IPersistence
+  (db-id-key [this schema]
+    "Returns the entity id key.")
+  (db-id [this schema data]
+    "Returns the entity id.")
   (prepare [this schema data]
     "Prepares the data for persistence. This can include validation, normalization, etc.")
   (fetch [this schema id]

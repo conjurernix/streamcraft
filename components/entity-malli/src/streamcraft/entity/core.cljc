@@ -3,6 +3,7 @@
             [malli.core :as m]
             [malli.generator :as mg]
             [malli.util :as mu]
+            [potpuri.core :as pt]
             [streamcraft.entity.api :as-alias entity]
             [streamcraft.protocols.api.entity-registry :as er]
             [taoensso.timbre :as log]))
@@ -25,11 +26,11 @@
 
   er/EntityRegistry
 
-  (get-registry [this] schemas)
+  (get-registry [_] schemas)
 
   (get-entities [this]
     (->> schemas
-         (filter #(er/entity? this %))))
+         (pt/filter-vals #(er/entity? this %))))
 
   (merge-registry [this new-schemas]
     (-> this
@@ -70,9 +71,21 @@
           :one)))
 
   (entity? [_this schema]
+    (::entity/entity? (meta schema)))
+
+  (entity-id-key [this schema]
+    (or (-> this
+            (er/properties schema)
+            ::entity/id)
+        (throw (ex-info "Entity schema does not have an id key" {:schema schema}))))
+
+  (entity-id [this schema value]
+    (get value (er/entity-id-key this schema)))
+
+  (select-entity-keys [_this schema entity]
     (-> schema
-        (m/properties {:registry schemas})
-        ::entity/entity?)))
+        (m/explicit-keys {:registry schemas})
+        (->> (select-keys entity)))))
 
 
 (defn make-registry []

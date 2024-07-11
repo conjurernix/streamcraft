@@ -122,6 +122,9 @@
   ;(deps/sync-deps)
   (tools.repl/refresh-all :after 'user/go))
 
+(defn refresh []
+  (tools.repl/refresh-all))
+
 (defn start-shadow! []
   (shadow.server/start!)
   (shadow.api/watch :admin-dev)

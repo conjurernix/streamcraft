@@ -8,10 +8,10 @@
 
 (def schemas
   {:person
-   [:map {::entity/name :person}
-    [:person/first-name :string]
-    [:person/last-name :string]
-    [:person/age :int]]})
+   (entity/as-entity [:map {::entity/name :person}
+                  [:person/first-name :string]
+                  [:person/last-name :string]
+                  [:person/age :int]])})
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map

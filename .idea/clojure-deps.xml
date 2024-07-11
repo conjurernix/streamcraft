@@ -7,7 +7,6 @@
         <option value="defaults" />
         <option value="dev" />
         <option value="frontend" />
-        <option value="poly" />
         <option value="test" />
       </set>
     </option>

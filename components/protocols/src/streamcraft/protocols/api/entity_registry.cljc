@@ -27,4 +27,10 @@
   (cardinality [this schema]
     "Returns either :one or :many depending on the cardinality of the schema.")
   (entity? [_this schema]
-    "Returns true if the schema is an entity schema."))
+    "Returns true if the schema is an entity schema.")
+  (entity-id-key [this schema]
+    "Returns the id key of an entity schema.")
+  (entity-id [this schema value]
+    "Returns the id of a value representing an entity.")
+  (select-entity-keys [this schema entity]
+    "Returns entity with only the keys that are present in the schema."))

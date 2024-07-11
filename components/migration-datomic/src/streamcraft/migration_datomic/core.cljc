@@ -23,29 +23,10 @@
   migration/IMigration
   (gen-migration [_]
     (let [schemas (er/get-entities registry)]
-
-      (->> schemas
-           vals
-           (map #(er/entries registry %))
-           (mapcat (fn [entry]
-                     (let [{::persistence/keys [type cardinality]
-                            ::entity/keys      [doc]
-                            :as                _props} (er/properties registry entry)
-                           key (er/entry-key registry entry)
-                           schema (er/entry-schema registry entry)
-                           cardinality (case (or cardinality
-                                                 (er/cardinality registry schema))
-                                         :one :db.cardinality/one
-                                         :many :db.cardinality/many)
-                           type (or type
-                                    (-> registry
-                                        (er/of-type schema)))]
-
-                       (cond-> {:db/ident       key
-                                :db/cardinality cardinality
-                                :db/valueType   (ts/transform persistence-transformer type)}
-
-                         (some? doc) (assoc :db/doc doc)))))))))
+      (transduce (comp (filter #(er/entity? registry %))
+                       (mapcat #(ts/transform persistence-transformer %)))
+                 conj
+                 (vals schemas)))))
 
 (defn make-migration []
   (map->DatomicMigration {}))

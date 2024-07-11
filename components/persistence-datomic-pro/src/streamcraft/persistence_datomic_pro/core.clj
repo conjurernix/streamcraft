@@ -1,6 +1,8 @@
 (ns streamcraft.persistence-datomic-pro.core
   (:require [com.stuartsierra.component :as component]
             [datomic.api :as d]
+            [streamcraft.protocols.api.entity-registry :as er]
+            [streamcraft.protocols.api.migration :as migration]
             [streamcraft.protocols.api.persistence :as persistence]
             [taoensso.timbre :as log]))
 
@@ -12,9 +14,16 @@
     (log/info "Starting DatomicProPersistence")
     (let [{:keys [uri]} config]
       (d/create-database uri)
-      (-> this
-          (assoc :conn (d/connect uri))
-          (assoc :txops []))))
+      (let [conn (d/connect uri)
+            txops []]
+        (when migration
+          (let [schema (migration/gen-migration migration)]
+            (when-let [tx-data (seq schema)]
+              (log/info "Transacting Datomic Schema")
+              @(d/transact conn tx-data))))
+        this (-> this
+                 (assoc :conn conn)
+                 (assoc :txops txops)))))
 
   (stop [this]
     (log/info "Stopping DatomicProPersistence")
@@ -28,23 +37,34 @@
           (assoc :txops nil))))
 
   persistence/IPersistence
-  (prepare [_this _schema data]
-    (assoc data :db/id (d/tempid :db.part/user)))
+  (db-id-key [_this _schema] :db/id)
 
-  (fetch [this schema id]
-    (d/q '[:find ?e
-           :in $ ?id-attr ?id
-           :where
-           [?e ?id-attr ?id]]
-         (d/db conn)
-         :db/id id))
+  (db-id [this schema data]
+    (get data (persistence/db-id-key this schema)))
+
+  (prepare [_this _schema data]
+    data)
+
+  (fetch [_this schema id]
+    (let [entity-id-key (er/entity-id-key registry schema)
+          db (d/db conn)
+          db-id (-> '[:find ?e
+                      :in $ ?id-attr ?id
+                      :where [?e ?id-attr ?id]]
+                    (d/q db entity-id-key id)
+                    (ffirst))]
+      (when-not db-id
+        (throw (ex-info "Entity not found" {:schema  schema
+                                            :id-attr entity-id-key
+                                            :id      id})))
+      (d/pull db '[*] db-id)))
 
   (search [this schema])
 
   (search [this schema {:keys [pull where] :as opts}])
 
   (persist! [this schema data]
-    (d/transact conn [data]))
+    @(d/transact conn [data]))
 
   (patch! [this schema id data])
 
