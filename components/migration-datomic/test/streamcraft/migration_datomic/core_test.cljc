@@ -6,13 +6,6 @@
             [streamcraft.utils.test :refer :all]
             [streamcraft.utils.test.persistence :refer :all]))
 
-(def schemas
-  {:person
-   (entity/as-entity [:map {::entity/name :person}
-                  [:person/first-name :string]
-                  [:person/last-name :string]
-                  [:person/age :int]])})
-
 (use-fixtures :each (with-system-fixture
                       (component/system-map
                         :schemas schemas
@@ -21,8 +14,8 @@
                                     [:schemas])
                         :persistence-transformer
                         (component/using
-                                (fresh-malli-datomic-persistence-schema-transformer)
-                                [:registry])
+                          (fresh-malli-datomic-persistence-schema-transformer)
+                          [:registry])
                         :migration (component/using
                                      (fresh-datomic-migration)
                                      [:registry :persistence-transformer]))))
@@ -30,7 +23,10 @@
 (deftest gen-migration--test
   (testing "Generating migration"
     (let [{:keys [migration]} *system*]
-      (is (= [{:db/ident       :person/first-name
+      (is (= [{:db/ident       :person/id
+               :db/valueType   :db.type/uuid
+               :db/cardinality :db.cardinality/one}
+              {:db/ident       :person/first-name
                :db/cardinality :db.cardinality/one
                :db/valueType   :db.type/string}
               {:db/ident       :person/last-name

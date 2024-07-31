@@ -14,8 +14,10 @@
             [streamcraft.http-middleware.api :as http-middleware]
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
+            [streamcraft.migration-datomic.api :as datomic.migration]
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
-            ;[streamcraft.persistence-xtdb.api :as xtdb]
+            [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]
+    ;[streamcraft.persistence-xtdb.api :as xtdb]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]))
 
@@ -47,15 +49,19 @@
                          (entity/make-registry)
                          [:schemas])
 
-             ;:xtdb (component/using
-             ;        (xtdb/make-persistence)
-             ;        {:registry :registry
-             ;         :config   :xtdb-config})
+             :datomic-persistence-schema-transformer (component/using
+                                                       (m.d.persistence-schema-transformer/make-persistence-schema-transformer)
+                                                       [:registry])
 
-             :datomic-pro (component/using
-                            (datomic-pro/make-persistence)
-                            {:registry :registry
-                             :config   :datomic-config})
+             :datomic-migration (component/using
+                                  (datomic.migration/make-migration)
+                                  {:registry                :registry
+                                   :persistence-transformer :datomic-persistence-schema-transformer})
+
+             :datomic-persistence (component/using
+                                    (datomic-pro/make-persistence)
+                                    {:registry :registry
+                                     :config   :datomic-config})
 
              :http-middleware http-middleware/middleware
 
@@ -139,7 +145,7 @@
 
 
 (comment
-  (def datomic (:datomic-pro admin-system))
+  (def datomic (:datomic-persistence admin-system))
 
   ;; add a person to datomic
   (let [{:keys [conn]} datomic

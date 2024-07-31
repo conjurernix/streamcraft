@@ -29,8 +29,32 @@
                    (->> (er/select-entity-keys registry :person)))))))
     (testing "Fetching non-existent person should throw"
       (let [random-id (random-uuid)]
-        (is (= {:msg "Entity not found"
-                :data    {:schema :person
-                          :id-attr :person/id
-                          :id random-id}}
+        (is (= {:msg  "Entity not found"
+                :data {:schema  :person
+                       :id-attr :person/id
+                       :id      random-id}}
                (catch-thrown-info (persistence/fetch persistence :person random-id))))))))
+
+(defn persistence-search-tests []
+  (let [{:keys [persistence registry]} *system*]
+    (testing "Inserting multiple entities and searching for them"
+      (let [persons (for [person [{:person/first-name "John"
+                                   :person/last-name  "Doe"
+                                   :person/age        30
+                                   :person/id         (random-uuid)}
+                                  {:person/first-name "Jane"
+                                   :person/last-name  "Doe"
+                                   :person/age        25
+                                   :person/id         (random-uuid)}
+                                  {:person/first-name "John"
+                                   :person/last-name  "Smith"
+                                   :person/age        35
+                                   :person/id         (random-uuid)}]]
+                      (persistence/prepare persistence :person person))]
+        (doseq [person persons]
+          (persistence/persist! persistence :person person))
+        (testing "Searching for all persons should return all person entities")
+        (is (= persons
+               (-> persistence
+                   (persistence/search :person)
+                   (->> (map #(er/select-entity-keys registry :person %))))))))))

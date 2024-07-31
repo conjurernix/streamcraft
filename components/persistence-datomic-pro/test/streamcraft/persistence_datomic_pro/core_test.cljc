@@ -28,7 +28,13 @@
 
 
 (deftest fetch--test
-  (testing "Inserting datomic schema"
+  (testing "Datomic Pro Persistence fetch"
     (persistence-fetch-tests)))
+
+(deftest search--test
+  (testing "Datomic Pro Persistence search"
+    (persistence-search-tests)))
+
+
 
 

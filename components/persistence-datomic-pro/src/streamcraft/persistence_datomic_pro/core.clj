@@ -1,6 +1,7 @@
 (ns streamcraft.persistence-datomic-pro.core
   (:require [com.stuartsierra.component :as component]
             [datomic.api :as d]
+            [streamcraft.datalog-query-builder.api :refer [build-query]]
             [streamcraft.protocols.api.entity-registry :as er]
             [streamcraft.protocols.api.migration :as migration]
             [streamcraft.protocols.api.persistence :as persistence]
@@ -48,20 +49,29 @@
   (fetch [_this schema id]
     (let [entity-id-key (er/entity-id-key registry schema)
           db (d/db conn)
-          db-id (-> '[:find ?e
-                      :in $ ?id-attr ?id
-                      :where [?e ?id-attr ?id]]
-                    (d/q db entity-id-key id)
-                    (ffirst))]
-      (when-not db-id
+          entity (-> '[:find [(pull ?e [*])]
+                       :in $ ?id-attr ?id
+                       :where [?e ?id-attr ?id]]
+                     (d/q db entity-id-key id)
+                     (first))]
+      (when-not entity
         (throw (ex-info "Entity not found" {:schema  schema
                                             :id-attr entity-id-key
                                             :id      id})))
-      (d/pull db '[*] db-id)))
+      entity))
 
-  (search [this schema])
+  (search [this schema]
+    (persistence/search this schema {}))
 
-  (search [this schema {:keys [pull where] :as opts}])
+  (search [this schema {:keys [keys where] :as opts}]
+    (let [db (d/db conn)
+          query (build-query {:keys  keys
+                              :where where}
+                             (er/entity-id-key registry schema))
+          q-fn (partial d/q query db)]
+      (-> q-fn
+          (apply (vals where))
+          (->> (apply concat)))))
 
   (persist! [this schema data]
     @(d/transact conn [data]))

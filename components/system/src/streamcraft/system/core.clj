@@ -7,8 +7,10 @@
             [streamcraft.http-middleware.api :as http-middleware]
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
+            [streamcraft.migration-datomic.api :as datomic.migration]
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
-            ;[streamcraft.persistence-xtdb.api :as xtdb]
+    ;[streamcraft.persistence-xtdb.api :as xtdb]
+            [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]
             [taoensso.timbre :as log]))
 
 (defn start-system! [{::keys [name] :as system}]
@@ -25,24 +27,30 @@
 
 (defn make-system [{:keys [name entrypoint routes config]}]
   (log/info "Initializing system " name)
-  (let [{:keys [xtdb jetty datomic hyperfiddle]} config]
+  (let [{:keys [jetty datomic hyperfiddle]} config]
     (component/system-map
       ::name name
-      ;:xtdb-config xtdb
+
       :jetty-config jetty
       :datomic-config datomic
       :schemas domain/schemas
       :registry (component/using
                   (entity/make-registry)
                   [:schemas])
-      ;:xtdb (component/using
-      ;        (xtdb/make-persistence)
-      ;        {:registry :registry
-      ;         :config   :xtdb-config})
-      :datomic-pro (component/using
-                     (datomic-pro/make-persistence)
-                     {:registry :registry
-                      :config   :datomic-config})
+
+      :datomic-persistence-schema-transformer (component/using
+                                                (m.d.persistence-schema-transformer/make-persistence-schema-transformer)
+                                                [:registry])
+
+      :datomic-migration (component/using
+                           (datomic.migration/make-migration)
+                           {:registry                :registry
+                            :persistence-transformer :datomic-persistence-schema-transformer})
+
+      :datomic-persistence (component/using
+                             (datomic-pro/make-persistence)
+                             {:registry :registry
+                              :config   :datomic-config})
       :http-middleware http-middleware/middleware
       :http-electric-handler (http-electric-handler/electric-handler entrypoint {:jetty       jetty
                                                                                  :hyperfiddle hyperfiddle})
