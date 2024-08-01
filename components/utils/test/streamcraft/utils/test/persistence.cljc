@@ -1,6 +1,5 @@
 (ns streamcraft.utils.test.persistence
   (:require [clojure.test :refer [is testing]]
-            [datomic.api :as d]
             [potpuri.core :as pt]
             [streamcraft.entity.api :as entity]
             [streamcraft.protocols.api.entity-registry :as er]
