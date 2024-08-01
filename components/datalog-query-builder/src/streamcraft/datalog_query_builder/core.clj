@@ -3,15 +3,13 @@
 (defn keyword->datalog-query-symbol
   "Given a keyword, return a symbol that can be used in a datalog query.
   The symbol is prefixed with a question mark. Retains the keyword's name and namespace.
-  If the keyword is namespaced, the question mark is prepended to the namespace, instead of the name."
+  The symbol is not namespaces, the namespace is in the name of the symbol with a dash, before the name of the keyword."
   [k]
   (let [n (namespace k)
-        n (when-not (nil? n)
-            (str "?" n))
-        k (if (nil? n)
-            (str "?" (name k))
-            (name k))]
-    (symbol n k)))
+        sym (cond-> "?"
+                   (not-empty n) (str n "-")
+                   :always (str (name k)))]
+    (symbol sym)))
 
 (defn build-clauses
   "Given a map of where clauses (each key is a property and each value is a value to match)
@@ -38,13 +36,16 @@
 (defn build-query
   "Given a map of where clauses (each key is a property and each value is a value to match)
   build a query that can be used with datalog."
-  [{:keys [ keys where] :as _query-opts} entity-id-key]
-  (let [{:keys [in where]} (build-clauses where)
+  [{:keys [keys where] :as _query-opts} entity-id-key]
+  (let [{where-clauses :where
+         :keys         [in]}
+        (build-clauses where)
         find-clauses (or (when-let [keys (seq keys)]
                            [(list 'pull '?e (vec keys))])
                          '[(pull ?e [*])])]
-    (cond-> `{:find  ~find-clauses
-              :in    [~'$]
-              :where [[~'?e ~entity-id-key ~'_]]}
-      (seq in) (update :in into in)
-      (seq where) (update :where into where))))
+    {:query (cond-> `{:find  ~find-clauses
+                      :in    [~'$]
+                      :where [[~'?e ~entity-id-key ~'_]]}
+              (seq in) (update :in into in)
+              (seq where-clauses) (update :where into where-clauses))
+     :args  (vals where)}))

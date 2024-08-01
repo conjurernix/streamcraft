@@ -65,13 +65,13 @@
 
   (search [this schema {:keys [keys where] :as opts}]
     (let [db (d/db conn)
-          query (build-query {:keys  keys
-                              :where where}
-                             (er/entity-id-key registry schema))
-          q-fn (partial d/q query db)]
-      (-> q-fn
-          (apply (vals where))
-          (->> (apply concat)))))
+          {:keys [query args]} (build-query {:keys  keys
+                                             :where where}
+                                            (er/entity-id-key registry schema))
+          q-fn (partial d/q query db)
+          res (-> q-fn
+                  (apply args))]
+      (apply concat res)))
 
   (persist! [this schema data]
     @(d/transact conn [data]))
