@@ -1,13 +1,13 @@
 (ns streamcraft.http-server.core
   (:require [com.stuartsierra.component :as component]
             [ring.adapter.jetty :as jetty]
-            [streamcraft.protocols.api.http-handler :as handler]
+            [streamcraft.protocols.api.provider.http-handler :as handler]
             [taoensso.timbre :as log])
   (:import (java.time Duration)
            (org.eclipse.jetty.server Server)
            (org.eclipse.jetty.server.handler.gzip GzipHandler)
            (org.eclipse.jetty.websocket.server.config JettyWebSocketServletContainerInitializer JettyWebSocketServletContainerInitializer$Configurator)
-           (streamcraft.protocols.api.http_handler IHttpHandlerProvider)))
+           (streamcraft.protocols.api.provider.http_handler IHttpHandlerProvider)))
 
 (defn- add-gzip-handler!
   "Makes Jetty server compress responses. Optional but recommended."

@@ -1,4 +1,4 @@
-(ns streamcraft.protocols.api.http-router)
+(ns streamcraft.protocols.api.provider.http-router)
 
 (defprotocol IHttpRouterProvider
   (get-router [this])

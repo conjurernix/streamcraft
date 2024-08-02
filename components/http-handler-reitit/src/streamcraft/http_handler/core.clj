@@ -1,10 +1,10 @@
 (ns streamcraft.http-handler.core
   (:require [com.stuartsierra.component :as component]
             [reitit.ring :as ring]
-            [streamcraft.protocols.api.http-handler :as handler]
-            [streamcraft.protocols.api.http-router :as router]
+            [streamcraft.protocols.api.provider.http-handler :as handler]
+            [streamcraft.protocols.api.provider.http-router :as router]
             [taoensso.timbre :as log])
-  (:import (streamcraft.protocols.api.http_router IHttpRouterProvider)))
+  (:import (streamcraft.protocols.api.provider.http_router IHttpRouterProvider)))
 
 (defrecord ReititHandlerProvider
   [^IHttpRouterProvider router-provider
