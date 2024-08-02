@@ -3,8 +3,8 @@
 (defprotocol IPersistence
   (db-id-key [this schema]
     "Returns the entity id key.")
-  (db-id [this schema data]
-    "Returns the entity id.")
+  (db-id [this schema entity-id]
+    "Returns the db id of the entity with entity-id.")
   (prepare [this schema data]
     "Prepares the data for persistence. This can include validation, normalization, etc.")
   (fetch [this schema id]
@@ -15,7 +15,7 @@
     "Persist a new entity.")
   (patch! [this schema id data]
     "Patch an existing entity. The data map should contain the fields to update. Data can be partial.")
-  (delete! [this id]
+  (delete! [this schema id]
     "Delete an entity."))
 
 (defprotocol ITransactionalPersistence
@@ -24,7 +24,7 @@
   (patch [this schema id data]
     "Prepares a new transaction operation that patches an existing entity.
      The data map should contain the fields to update. Data can be partial.")
-  (delete [this id]
+  (delete [this schema id]
     "Prepares a new transaction operation that deletes an entity.")
   (clear-txs [this]
     "Clear the accumulated transactions .")

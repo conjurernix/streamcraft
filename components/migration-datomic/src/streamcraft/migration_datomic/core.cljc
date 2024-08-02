@@ -1,13 +1,13 @@
 (ns streamcraft.migration-datomic.core
   (:require [com.stuartsierra.component :as component]
-            [streamcraft.entity.api :as-alias entity]
-            [streamcraft.protocols.api.entity-registry :as er]
+            [streamcraft.entity-manager.api :as-alias entity]
+            [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.migration :as migration]
             [streamcraft.protocols.api.persistence :as-alias persistence]
             [streamcraft.protocols.api.transformer.schema :as ts]
             [taoensso.timbre :as log]))
 
-(defrecord DatomicMigration [registry persistence-transformer]
+(defrecord DatomicMigration [entity-manager persistence-transformer]
 
   component/Lifecycle
 
@@ -18,12 +18,12 @@
   (stop [this]
     (log/info "Stopping DatomicMigration")
     (-> this
-        (assoc :registry nil)))
+        (assoc :entity-manager nil)))
 
   migration/IMigration
   (gen-migration [_]
-    (let [schemas (er/get-entities registry)]
-      (transduce (comp (filter #(er/entity? registry %))
+    (let [schemas (em/get-entities entity-manager)]
+      (transduce (comp (filter #(em/entity? entity-manager %))
                        (mapcat #(ts/transform persistence-transformer %)))
                  conj
                  (vals schemas)))))

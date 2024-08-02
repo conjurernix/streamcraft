@@ -1,7 +1,7 @@
 (ns streamcraft.domain.core
-  (:require [streamcraft.entity.api :as-alias entity]))
+  (:require [streamcraft.protocols.api.entity-manager :as-alias em]))
 
 (def schemas
-  {:user [:map {::entity/name :user}
+  {:user [:map {::em/name "User"}
           [:first-name :string]
           [:last-name :string]]})

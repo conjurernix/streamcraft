@@ -37,7 +37,7 @@
                streamcraft/protocols                                    {:local/root "components/protocols"}
                streamcraft/system                                       {:local/root "components/system"}
                streamcraft/utils                                        {:local/root "components/utils"}
-               streamcraft/entity                                       {:local/root "components/entity-malli"}
+               streamcraft/entity-manager                               {:local/root "components/entity-manager-malli"}
                streamcraft/domain                                       {:local/root "components/domain"}
 
 

@@ -1,5 +1,5 @@
 (ns streamcraft.datalog-query-builder.core-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest testing is]]
             [streamcraft.datalog-query-builder.core :as sut]))
 
 (deftest keyword->datalog-query-symbol-test
@@ -32,14 +32,14 @@
                      :in    [$ ?person-name]
                      :where [[?e :person/id _]
                              [?e :person/name ?person-name]]}
-            :args ["John"]}
+            :args  ["John"]}
            (sut/build-query {:where {:person/name "John"}}
                             :person/id)))
     (is (= {:query '{:find  [(pull ?e [*])]
                      :in    [$ ?person-age]
                      :where [[?e :person/id _]
                              [?e :person/age ?person-age]]}
-            :args [30]}
+            :args  [30]}
            (sut/build-query {:where {:person/age 30}}
                             :person/id))))
   (testing "when the :keys key is provided, the query should use the provided keys"

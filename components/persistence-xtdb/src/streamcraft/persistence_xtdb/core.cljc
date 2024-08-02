@@ -1,6 +1,6 @@
 (ns streamcraft.persistence-xtdb.core
   (:require [com.stuartsierra.component :as component]
-            [streamcraft.protocols.api.entity-registry :as er]
+            [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.persistence :as persistence]
             [taoensso.timbre :as log]
             [xtdb.api :as xt]
@@ -10,7 +10,7 @@
   (xt/template (from ~table [* {:xt/id ~id}])))
 
 
-(defrecord XtdbPersistence [config registry node]
+(defrecord XtdbPersistence [config entity-manager node]
   component/Lifecycle
   (start [this]
     (log/info "Starting XtdbPersistence")
@@ -21,24 +21,24 @@
     (when node
       (.close node))
     (-> this
-        (assoc :registry nil)
+        (assoc :entity-manager nil)
         (assoc :node nil)))
   persistence/IPersistence
   (prepare [_this schema data]
-    (when (not (er/validate registry schema data))
+    (when (not (em/validate entity-manager schema data))
       (throw (ex-info "Invalid data" {:schema schema
                                       :data   data})))
     (update data :xt/id (fn [id] (or id (random-uuid)))))
   (fetch [_this schema id]
     (or (-> node
-            (xt/q (-fetch-q (er/name registry schema) id))
+            (xt/q (-fetch-q (em/name entity-manager schema) id))
             (first))
         (throw (ex-info "Entity not found" {:schema schema
                                             :id     id}))))
   (search [this schema])
   (search [this schema {:keys [pull where] :as opts}])
   (persist! [_this schema data]
-    (xt/execute-tx node [[:put-docs (er/name registry schema) data]]))
+    (xt/execute-tx node [[:put-docs (em/name entity-manager schema) data]]))
   (patch! [this schema id data])
   (delete! [this id])
 

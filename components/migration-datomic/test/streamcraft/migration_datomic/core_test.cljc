@@ -1,24 +1,24 @@
 (ns streamcraft.migration-datomic.core-test
   (:require [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
-            [streamcraft.entity.api :as-alias entity]
+            [streamcraft.entity-manager.api :as-alias entity]
+            [streamcraft.entity-manager.core-test :refer [schemas]]
             [streamcraft.protocols.api.migration :as migration]
-            [streamcraft.utils.test :refer :all]
-            [streamcraft.utils.test.persistence :refer :all]))
+            [streamcraft.utils.test :refer :all]))
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map
                         :schemas schemas
-                        :registry (component/using
-                                    (fresh-entity-registry)
-                                    [:schemas])
+                        :entity-manager (component/using
+                                          (fresh-entity-manager)
+                                          [:schemas])
                         :persistence-transformer
                         (component/using
                           (fresh-malli-datomic-persistence-schema-transformer)
-                          [:registry])
+                          [:entity-manager])
                         :migration (component/using
                                      (fresh-datomic-migration)
-                                     [:registry :persistence-transformer]))))
+                                     [:entity-manager :persistence-transformer]))))
 
 (deftest gen-migration--test
   (testing "Generating migration"

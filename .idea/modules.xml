@@ -10,7 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/config-aero/config-aero.iml" filepath="$PROJECT_DIR$/components/config-aero/config-aero.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/datalog-query-builder/datalog-query-builder.iml" filepath="$PROJECT_DIR$/components/datalog-query-builder/datalog-query-builder.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/domain/domain.iml" filepath="$PROJECT_DIR$/components/domain/domain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/entity-malli/entity-malli.iml" filepath="$PROJECT_DIR$/components/entity-malli/entity-malli.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/entity-manager-malli/entity-manager-malli.iml" filepath="$PROJECT_DIR$/components/entity-manager-malli/entity-manager-malli.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" filepath="$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" />

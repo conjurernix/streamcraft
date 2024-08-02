@@ -1,7 +1,7 @@
-(ns streamcraft.protocols.api.entity-registry
+(ns streamcraft.protocols.api.entity-manager
   (:refer-clojure :exclude [name]))
 
-(defprotocol EntityRegistry
+(defprotocol EntityManager
   (get-registry [this]
     "Returns the registry.")
   (get-entities [this]
@@ -16,14 +16,8 @@
     "Returns the entity name of an entity schema.")
   (properties [this schema]
     "Returns the properties of the schema.")
-  (entries [this schema]
-    "Returns the entries of a map schema.")
   (of-type [this schema]
     "Returns the underlying schema in parametric schemas or self in non-parametric schemas.")
-  (entry-key [this entry]
-    "Returns the key of an entry.")
-  (entry-schema [this entry]
-    "Returns the schema of an entry.")
   (cardinality [this schema]
     "Returns either :one or :many depending on the cardinality of the schema.")
   (entity? [_this schema]
@@ -33,4 +27,6 @@
   (entity-id [this schema value]
     "Returns the id of a value representing an entity.")
   (select-entity-keys [this schema entity]
-    "Returns entity with only the keys that are present in the schema."))
+    "Returns entity with only the keys that are present in the schema.")
+  (optional-keys [this schema] [this schema keys]
+    "Returns a new schema with keys marked as optional."))

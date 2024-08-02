@@ -1,7 +1,7 @@
 (ns streamcraft.system.core
   (:require [com.stuartsierra.component :as component]
             [streamcraft.domain.api :as domain]
-            [streamcraft.entity.api :as entity]
+            [streamcraft.entity-manager.api :as entity]
             [streamcraft.http-electric-handler.api :as http-electric-handler]
             [streamcraft.http-handler.api :as http-handler]
             [streamcraft.http-middleware.api :as http-middleware]
@@ -34,22 +34,22 @@
       :jetty-config jetty
       :datomic-config datomic
       :schemas domain/schemas
-      :registry (component/using
-                  (entity/make-registry)
+      :entity-manager (component/using
+                  (entity/make-entity-manager)
                   [:schemas])
 
       :datomic-persistence-schema-transformer (component/using
                                                 (m.d.persistence-schema-transformer/make-persistence-schema-transformer)
-                                                [:registry])
+                                                [:entity-manager])
 
       :datomic-migration (component/using
                            (datomic.migration/make-migration)
-                           {:registry                :registry
+                           {:entity-manager                :entity-manager
                             :persistence-transformer :datomic-persistence-schema-transformer})
 
       :datomic-persistence (component/using
                              (datomic-pro/make-persistence)
-                             {:registry :registry
+                             {:entity-manager :entity-manager
                               :config   :datomic-config})
       :http-middleware http-middleware/middleware
       :http-electric-handler (http-electric-handler/electric-handler entrypoint {:jetty       jetty

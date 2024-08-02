@@ -1,27 +1,21 @@
 (ns streamcraft.persistence-xtdb.core-test
   (:require [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
-            [streamcraft.entity.api :as-alias entity]
-            [streamcraft.protocols.api.entity-registry :as er]
+            [streamcraft.entity-manager.api :as-alias entity]
+            [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.persistence :as persistence]
             [streamcraft.utils.test :refer :all]
             [streamcraft.utils.test.persistence :refer :all]))
 
-(def registry
-  {:person
-   [:map {::entity/name :person}
-    [:first-name :string]
-    [:last-name :string]
-    [:age :int]]})
 
-(use-fixtures :each (with-system-fixture
+#_(use-fixtures :each (with-system-fixture
                       (component/system-map
                         :xtdb-config {}
-                        :registry (doto (fresh-entity-registry)
-                                    (er/merge-registry registry))
+                        :entity-manager (doto (fresh-entity-manager)
+                                    (em/merge-registry registry))
                         :persistence (component/using
                                        (fresh-xtdb-persistence)
-                                       {:registry :registry
+                                       {:entity-manager :entity-manager
                                         :config   :xtdb-config}))))
 
 (deftest fetch--test

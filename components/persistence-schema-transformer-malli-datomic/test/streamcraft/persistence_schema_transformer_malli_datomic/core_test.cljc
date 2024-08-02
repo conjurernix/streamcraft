@@ -19,12 +19,12 @@
 (use-fixtures :each (with-system-fixture
                       (component/system-map
                         :schemas schemas
-                        :registry (component/using
-                                    (fresh-entity-registry)
+                        :entity-manager (component/using
+                                    (fresh-entity-manager)
                                     [:schemas])
                         :transformer (component/using
                                        (fresh-malli-datomic-persistence-schema-transformer)
-                                       [:registry]))))
+                                       [:entity-manager]))))
 
 (deftest transform--test
   (testing "Transforming a simple schema to Datomic schema, with only single cardinality and basic types."

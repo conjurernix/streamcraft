@@ -1,7 +1,7 @@
 (ns streamcraft.persistence-schema-transformer-malli-datomic.core
   (:require [com.stuartsierra.component :as component]
             [malli.core :as m]
-            [streamcraft.protocols.api.entity-registry :as er]
+            [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.transformer.schema :as ts]
             [taoensso.timbre :as log]))
 
@@ -40,7 +40,7 @@
 
     #{'bytes? bytes?} :db.type/bytes))
 
-(defrecord MalliDatomicPersistenceSchemaTransformer [registry]
+(defrecord MalliDatomicPersistenceSchemaTransformer [entity-manager]
 
   component/Lifecycle
 
@@ -51,14 +51,14 @@
   (stop [this]
     (log/info "Stopping EntityPersistenceSchemaTransformer")
     (-> this
-        (assoc :registry nil)))
+        (assoc :entity-manager nil)))
 
   ts/ISchemaTransformer
   (transform [_this schema]
     (m/walk
       schema
       (fn [schema path children _]
-        (let [schema-type (er/of-type registry schema)]
+        (let [schema-type (em/of-type entity-manager schema)]
           (case schema-type
             :map (->> children
                       (mapv last))
@@ -66,10 +66,10 @@
                   valueType (malli-schema->datomic-valuetype schema-type)]
               {:db/ident       ident
                :db/valueType   valueType,
-               :db/cardinality (case (er/cardinality registry schema)
+               :db/cardinality (case (em/cardinality entity-manager schema)
                                  :one :db.cardinality/one
                                  :many :db.cardinality/many)}))))
-      {:registry (er/get-registry registry)})))
+      {:registry (em/get-registry entity-manager)})))
 
 (defn make-persistence-schema-transformer []
   (map->MalliDatomicPersistenceSchemaTransformer {}))
