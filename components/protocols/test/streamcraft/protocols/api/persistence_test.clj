@@ -154,3 +154,39 @@
                      (persistence/search :person {:keys  [:person/last-name]
                                                   :where {:person/first-name "John"}})
                      (->> (map #(em/select-entity-keys entity-manager :person %)))))))))))
+
+(defn persistence-transact!-test []
+  (let [{:keys [persistence entity-manager]} *system*
+        persons (repeatedly 10 #(em/generate entity-manager :person))]
+    (testing "Transacting should persist all the entities in the transaction"
+      (->> persons
+           (reduce (fn [acc person]
+                     (persistence/persist acc :person person))
+                   persistence)
+           (persistence/transact!))
+      (let [persisted (-> persistence
+                          (persistence/search :person)
+                          (->> (map #(em/select-entity-keys entity-manager :person %))))]
+        (is (= persons persisted))))
+    (testing "Transacting should update the entities in the transaction"
+      (->> persons
+           (reduce (fn [acc {:keys [person/id]}]
+                     (persistence/patch acc :person id {:person/age 21}))
+                   persistence)
+           (persistence/transact!))
+      (let [persisted (-> persistence
+                          (persistence/search :person)
+                          (->> (map #(em/select-entity-keys entity-manager :person %))))]
+        (is (= (->> persons
+                    (map #(assoc % :person/age 21)))
+               persisted))))
+    (testing "should delete all entities in the transaction"
+      (->> persons
+           (reduce (fn [acc {:keys [person/id]}]
+                     (persistence/delete acc :person id))
+                   persistence)
+           (persistence/transact!))
+      (let [persisted (-> persistence
+                          (persistence/search :person)
+                          (->> (map #(em/select-entity-keys entity-manager :person %))))]
+        (is (= [] persisted))))))

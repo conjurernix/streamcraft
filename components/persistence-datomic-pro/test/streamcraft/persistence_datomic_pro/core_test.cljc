@@ -48,6 +48,10 @@
     (testing "DatomicProPersistence/search test."
       (persistence-search-tests)))
 
+(deftest transact!--test
+    (testing "DatomicProPersistence/transact! test."
+      (persistence-transact!-test)))
+
 
 
 

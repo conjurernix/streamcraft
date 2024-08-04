@@ -84,21 +84,17 @@
       (apply concat res)))
 
   (persist! [this schema data]
-    (let [data (persistence/prepare this schema data)]
-      (-> this
-          ;; TODO: Data is being prepared twice, but it's fine for now
-          (persistence/persist schema data)
-          (persistence/transact!))
-      (persistence/fetch this schema (em/entity-id entity-manager schema data))))
+    (-> this
+        (persistence/persist schema data)
+        (persistence/transact!))
+    (persistence/fetch this schema (em/entity-id entity-manager schema data)))
 
   (patch! [this schema id data]
-    (let [data (persistence/prepare this (em/optional-keys entity-manager schema) data)]
-      (-> this
-          ;; TODO: Data is being prepared twice, but it's fine for now
-          (persistence/patch schema id data)
-          (persistence/transact!))
-      ; Not sure if this is a good idea
-      (persistence/fetch this schema id)))
+    (-> this
+        (persistence/patch schema id data)
+        (persistence/transact!))
+    ; Not sure if this is a good idea
+    (persistence/fetch this schema id))
 
   (delete! [this schema id]
     (-> this
@@ -134,15 +130,18 @@
 
   (transact! [this]
     (let [tx-data (->> txops
-                          (map
-                            (fn [{:keys [tx-action entity-id entity-schema entity-data]}]
-                              (case tx-action
-                                :persist entity-data
-                                :patch (let [db-id (persistence/db-id this entity-schema entity-id)]
-                                         (assoc entity-data :db/id db-id))
-                                :delete (let [db-id (persistence/db-id this entity-schema entity-id)]
-                                          [:db.fn/retractEntity db-id]))))
-                          (into []))]
+                       (map
+                         (fn [{:keys [tx-action entity-id entity-schema entity-data]}]
+                           (case tx-action
+                             :persist entity-data
+                             ; If :db/id exists in the map, use that, otherwise find it.
+                             :patch (let [db-id (or (:db/id entity-data)
+                                                    (persistence/db-id this entity-schema entity-id))]
+                                      (assoc entity-data :db/id db-id))
+                             :delete (let [db-id (or (:db/id entity-data)
+                                                     (persistence/db-id this entity-schema entity-id))]
+                                       [:db.fn/retractEntity db-id]))))
+                       (into []))]
       @(d/transact conn tx-data)
       (-> this
           (persistence/clear-txs)))))
