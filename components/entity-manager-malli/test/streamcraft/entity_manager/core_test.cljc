@@ -64,3 +64,9 @@
 (deftest select-entity-keys--test
   (testing "MalliEntityManager/select-entity-keys test."
     (entity-manager-select-entity-keys-test)))
+
+(deftest optional-keys--test
+  (testing "MalliEntityManager/optional-keys test."
+    (entity-manager-optional-keys-test)))
+
+

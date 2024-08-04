@@ -95,8 +95,10 @@
     (-> schema
         (m/explicit-keys {:registry registry})
         (->> (select-keys entity))))
+
   (optional-keys [_this schema]
     (mu/optional-keys schema {:registry registry}))
+
   (optional-keys [_this schema keys]
     (mu/optional-keys schema keys {:registry registry})))
 

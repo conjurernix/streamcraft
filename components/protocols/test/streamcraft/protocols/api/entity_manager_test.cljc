@@ -106,21 +106,23 @@
     (testing "Should return a new schema with keys marked as optional, thus partial data can be valid"
       (let [partial-schema (-> entity-manager
                                (em/optional-keys :person))]
-        (is (= true
-               (em/validate entity-manager partial-schema {:person/id (random-uuid)})))
-        (is (= true
-               (em/validate entity-manager partial-schema {:person/id         (random-uuid)
-                                                           :person/first-name "John"})))
-        (is (= false
-               (em/validate entity-manager partial-schema {:person/first-name "John"}))))
+        (let [data {:person/id (random-uuid)}]
+          (is (= data
+                 (em/validate entity-manager partial-schema data))))
+        (let [data {:person/id         (random-uuid)
+                    :person/first-name "John"}]
+          (is (= data
+                 (em/validate entity-manager partial-schema data)))))
       (let [partial-schema (-> entity-manager
-                               (em/optional-keys :person [:person/first-name :person/last-name]))]
-        (is (= false
-               (em/validate entity-manager partial-schema {:person/id (random-uuid)})))
-        (is (= true
-               (em/validate entity-manager partial-schema {:person/first-name "John"
-                                                           :person/last-name "Doe"})))
-        (is (= true
-               (em/validate entity-manager partial-schema {:person/id (random-uuid)
-                                                           :person/first-name "John"
-                                                           :person/last-name "Doe"})))))))
+                               (em/optional-keys :person [:person/age]))]
+        (let [data {:person/id (random-uuid)}]
+          (is (= {:message "Validation Error"
+                  :data    {:error-reason {:person/first-name ["missing required key"]
+                                           :person/last-name  ["missing required key"]}
+                            :error-value  nil}}
+                 (catch-thrown-info (em/validate entity-manager partial-schema data)))))
+        (let [data {:person/id (random-uuid)
+                    :person/first-name "John"
+                    :person/last-name  "Doe"}]
+          (is (= data
+                 (em/validate entity-manager partial-schema data))))))))
