@@ -25,6 +25,8 @@
                ; Devenv tools
                hashp/hashp                                              {:mvn/version "0.2.2"}
                binaryage/devtools                                       {:mvn/version "1.0.7"}
+               com.taoensso/telemere                                    {:mvn/version "1.0.0-beta14"}
+               cjohansen/courier                                        {:mvn/version "2024.03.15"}
 
                ; Streamcraft (Framework components)
                ;; Bases
@@ -39,14 +41,15 @@
                streamcraft/utils                                        {:local/root "components/utils"}
                streamcraft/entity-manager                               {:local/root "components/entity-manager-malli"}
                streamcraft/domain                                       {:local/root "components/domain"}
+               streamcraft/observability                                {:local/root "components/observability-telemere"}
 
-
-               ;;; Http Server
+               ;;; Http
                streamcraft/http-middleware                              {:local/root "components/http-middleware-reitit"}
                streamcraft/http-electric-handler                        {:local/root "components/http-electric-handler-reitit"}
                streamcraft/http-handler                                 {:local/root "components/http-handler-reitit"}
                streamcraft/http-server                                  {:local/root "components/http-server-jetty"}
                streamcraft/http-router                                  {:local/root "components/http-router-reitit"}
+               streamcraft/http-client                                  {:local/root "components/http-client-courier"}
 
                ;;; Database
                ;streamcraft/persistence-xtdb            {:local/root "components/persistence-xtdb"}
@@ -54,9 +57,9 @@
                streamcraft/persistence-schema-transformer-malli-datomic {:local/root "components/persistence-schema-transformer-malli-datomic"}
                streamcraft/migration-datomic                            {:local/root "components/migration-datomic"}
                streamcraft/datalog-query-builder                        {:local/root "components/datalog-query-builder"}
+
                ;;; Frontend
                streamcraft/frontend-router                              {:local/root "components/frontend-router-reitit"}
-
                ; Streamwrite (App specific components)
                ;; Bases
                streamwrite/admin-base                                   {:local/root "bases/admin-base"}
