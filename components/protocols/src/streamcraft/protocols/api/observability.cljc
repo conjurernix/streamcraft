@@ -1,16 +1,16 @@
 (ns streamcraft.protocols.api.observability)
 
 (defprotocol ILogging
-  (log! [this message] [this level-or-opts message]
+  (log! [this event args]
     "Logs a message with the given level.
     The level can be a keyword or a map with the level and other log options.")
-  (debug! [this message] [this opts message]
+  (debug! [this event args]
     "Logs a debug message.")
-  (info! [this message] [this opts message]
+  (info! [this event args]
     "Logs an info message.")
-  (warn! [this message] [this opts message]
+  (warn! [this event args]
     "Logs a warning message.")
-  (error! [this message] [this opts message]
+  (error! [this event args]
     "Logs an error message."))
 
 (defprotocol IMonitoring
@@ -34,6 +34,6 @@
   (start-trace [this] [this trace-id-or-opts]
     "Returns a new object with the trace id set.
      The trace id can be a string or a map with the trace id and other trace options.
-     The trace id is used to correlate logs, metrics, and other observability-telemere data.")
+     The trace id is used to correlate logs, metrics, and other observability data.")
   (end-trace [this]
     "Returns a new object with the trace id unset."))

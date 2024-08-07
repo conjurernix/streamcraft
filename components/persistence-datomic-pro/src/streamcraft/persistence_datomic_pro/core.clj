@@ -4,30 +4,29 @@
             [streamcraft.datalog-query-builder.api :refer [build-query]]
             [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.migration :as migration]
-            [streamcraft.protocols.api.persistence :as persistence]
-            [taoensso.timbre :as log])
+            [streamcraft.protocols.api.observability :as obs]
+            [streamcraft.protocols.api.persistence :as persistence])
   (:import (clojure.lang ExceptionInfo)))
 
 
-(defrecord DatomicProPersistence [config migration entity-manager conn txops]
+(defrecord DatomicProPersistence [obs config migration entity-manager conn txops]
 
   component/Lifecycle
   (start [this]
-    (log/info "Starting DatomicProPersistence")
+    (obs/info! obs :starting-component {:component DatomicProPersistence})
     (let [{:keys [uri]} config]
       (d/create-database uri)
       (let [conn (d/connect uri)]
         (when migration
           (let [schema (migration/gen-migration migration)]
             (when-let [tx-data (seq schema)]
-              (log/info "Transacting Datomic Schema")
               @(d/transact conn tx-data))))
         this (-> this
                  (assoc :conn conn)
                  (persistence/clear-txs)))))
 
   (stop [this]
-    (log/info "Stopping DatomicProPersistence")
+    (obs/info! obs :stopping-component {:component DatomicProPersistence})
     (let [{:keys [uri]} config]
       (d/delete-database uri)
       (-> this

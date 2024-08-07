@@ -15,9 +15,9 @@
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
             [streamcraft.migration-datomic.api :as datomic.migration]
+            [streamcraft.observability-mulog.api :as obs.mulog]
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
             [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]
-    ;[streamcraft.persistence-xtdb.api :as xtdb]
             [streamcraft.repl.core :as repl]
             [streamcraft.system.api :as system]))
 
@@ -44,24 +44,30 @@
              :admin-jetty-config admin-jetty-config
              :client-jetty-config client-jetty-config
              :datomic-config {:uri "datomic:mem://streamcraft"}
+             :obs-config {:publishers [{:type :console}]}
+             :obs (component/using
+                    (obs.mulog/make-observability)
+                    {:config :obs-config})
              :schemas domain/schemas
              :entity-manager (component/using
-                         (entity/make-entity-manager)
-                         [:schemas])
+                               (entity/make-entity-manager)
+                               [:obs :schemas])
 
              :datomic-persistence-schema-transformer (component/using
                                                        (m.d.persistence-schema-transformer/make-persistence-schema-transformer)
-                                                       [:entity-manager])
+                                                       [:obs :entity-manager])
 
              :datomic-migration (component/using
                                   (datomic.migration/make-migration)
-                                  {:entity-manager                :entity-manager
+                                  {:obs                     :obs
+                                   :entity-manager          :entity-manager
                                    :persistence-transformer :datomic-persistence-schema-transformer})
 
              :datomic-persistence (component/using
                                     (datomic-pro/make-persistence)
-                                    {:entity-manager :entity-manager
-                                     :config   :datomic-config})
+                                    {:obs            :obs
+                                     :entity-manager :entity-manager
+                                     :config         :datomic-config})
 
              :http-middleware http-middleware/middleware
 
@@ -81,34 +87,40 @@
 
              :admin-router (component/using
                              (http-router/make-router)
-                             {:middleware       :http-middleware
+                             {:obs              :obs
+                              :middleware       :http-middleware
                               :electric-handler :admin-electric-handler
                               :routes           :admin-routes
                               :config           :admin-jetty-config})
 
              :client-router (component/using
                               (http-router/make-router)
-                              {:middleware       :http-middleware
+                              {:obs              :obs
+                               :middleware       :http-middleware
                                :electric-handler :client-electric-handler
                                :routes           :client-routes
                                :config           :client-jetty-config})
 
              :admin-handler (component/using
                               (http-handler/make-handler)
-                              {:router-provider :admin-router})
+                              {:obs             :obs
+                               :router-provider :admin-router})
 
              :client-handler (component/using
                                (http-handler/make-handler)
-                               {:router-provider :client-router})
+                               {:obs             :obs
+                                :router-provider :client-router})
 
              :admin-server (component/using
                              (http-server/make-server)
-                             {:handler-provider :admin-handler
+                             {:obs              :obs
+                              :handler-provider :admin-handler
                               :config           :admin-jetty-config})
 
              :client-server (component/using
                               (http-server/make-server)
-                              {:handler-provider :client-handler
+                              {:obs              :obs
+                               :handler-provider :client-handler
                                :config           :client-jetty-config}))))
 
 (defn start! []

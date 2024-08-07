@@ -11,22 +11,19 @@
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
     ;[streamcraft.persistence-xtdb.api :as xtdb]
             [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]
-            [taoensso.timbre :as log]))
+            [streamcraft.protocols.api.observability :as obs]))
 
-(defn start-system! [{::keys [name] :as system}]
+(defn start-system! [{:keys [obs] :as system}]
   (when system
-    (log/info "Starting system...")
-    (log/info "Starting system " name)
+    (obs/info! obs :starting-system {})
     (component/start-system system)))
 
-(defn stop-system! [{::keys [name] :as system}]
+(defn stop-system! [{:keys [obs] :as system}]
   (when system
-    (log/info "Stopping system...")
-    (log/info "Stopping system " name)
+    (obs/info! obs :stopping-system {})
     (component/stop-system system)))
 
 (defn make-system [{:keys [name entrypoint routes config]}]
-  (log/info "Initializing system " name)
   (let [{:keys [jetty datomic hyperfiddle]} config]
     (component/system-map
       ::name name

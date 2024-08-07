@@ -3,20 +3,20 @@
             [streamcraft.entity-manager.api :as-alias entity]
             [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.migration :as migration]
+            [streamcraft.protocols.api.observability :as obs]
             [streamcraft.protocols.api.persistence :as-alias persistence]
-            [streamcraft.protocols.api.transformer.schema :as ts]
-            [taoensso.timbre :as log]))
+            [streamcraft.protocols.api.transformer.schema :as ts]))
 
-(defrecord DatomicMigration [entity-manager persistence-transformer]
+(defrecord DatomicMigration [obs entity-manager persistence-transformer]
 
   component/Lifecycle
 
   (start [this]
-    (log/info "Starting DatomicMigration")
+    (obs/info! obs :starting-component {:component DatomicMigration})
     this)
 
   (stop [this]
-    (log/info "Stopping DatomicMigration")
+    (obs/info! obs :stopping-component {:component DatomicMigration})
     (-> this
         (assoc :entity-manager nil)))
 

@@ -1,7 +1,6 @@
 (ns streamcraft.bootstrap.core
   (:require [streamcraft.config.api :as config]
-            [streamcraft.system.api :as system]
-            [taoensso.timbre :as log]))
+            [streamcraft.system.api :as system]))
 
 (defn bootstrap-system!
   [{:keys [name config-path routes entrypoint]}]
@@ -10,5 +9,4 @@
                                     :entrypoint entrypoint
                                     :routes     routes
                                     :config     config})]
-    (log/info (str "Starting system: " name))
     (system/start-system! system)))

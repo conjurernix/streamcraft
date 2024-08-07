@@ -1,28 +1,24 @@
 (ns streamcraft.http-handler.core
   (:require [com.stuartsierra.component :as component]
             [reitit.ring :as ring]
+            [streamcraft.protocols.api.observability :as obs]
             [streamcraft.protocols.api.provider.http-handler :as handler]
-            [streamcraft.protocols.api.provider.http-router :as router]
-            [taoensso.timbre :as log])
-  (:import (streamcraft.protocols.api.provider.http_router IHttpRouterProvider)))
+            [streamcraft.protocols.api.provider.http-router :as router]))
 
 (defrecord ReititHandlerProvider
-  [^IHttpRouterProvider router-provider
-   handler]
+  [obs router-provider handler]
+
   component/Lifecycle
   (start [this]
-    (if handler
-      this
-      (do (log/info "Starting ReititHandlerProvider")
-          (->> router-provider
-               (router/get-router)
-               (ring/ring-handler)
-               (assoc this :handler)))))
+    (obs/info! obs :starting-component {:component ReititHandlerProvider})
+    (->> router-provider
+         (router/get-router)
+         (ring/ring-handler)
+         (assoc this :handler)))
+
   (stop [this]
-    (if handler
-      (do (log/info "Stopping ReititHandlerProvider")
-          (assoc this :handler nil))
-      this))
+    (obs/info! obs :starting-component {:component ReititHandlerProvider})
+    (assoc this :handler nil))
 
   handler/IHttpHandlerProvider
   (get-handler [_]

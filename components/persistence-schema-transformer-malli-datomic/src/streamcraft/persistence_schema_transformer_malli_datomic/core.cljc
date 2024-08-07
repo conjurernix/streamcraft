@@ -2,8 +2,8 @@
   (:require [com.stuartsierra.component :as component]
             [malli.core :as m]
             [streamcraft.protocols.api.entity-manager :as em]
-            [streamcraft.protocols.api.transformer.schema :as ts]
-            [taoensso.timbre :as log]))
+            [streamcraft.protocols.api.observability :as obs]
+            [streamcraft.protocols.api.transformer.schema :as ts]))
 
 (defn malli-schema->datomic-valuetype
   "Converts (almost) any built-in Malli schema to a Datomic schema"
@@ -40,16 +40,16 @@
 
     #{'bytes? bytes?} :db.type/bytes))
 
-(defrecord MalliDatomicPersistenceSchemaTransformer [entity-manager]
+(defrecord MalliDatomicPersistenceSchemaTransformer [obs entity-manager]
 
   component/Lifecycle
 
   (start [this]
-    (log/info "Starting EntityPersistenceSchemaTransformer")
+    (obs/info! obs :starting-component {:component MalliDatomicPersistenceSchemaTransformer})
     this)
 
   (stop [this]
-    (log/info "Stopping EntityPersistenceSchemaTransformer")
+    (obs/info! obs :stopping-component {:component MalliDatomicPersistenceSchemaTransformer})
     (-> this
         (assoc :entity-manager nil)))
 

@@ -14,8 +14,6 @@
                org.clojure/tools.namespace                              {:mvn/version "1.5.0"}
                com.datomic/peer                                         {:mvn/version "1.0.7075"}
                com.hyperfiddle/electric                                 {:mvn/version "v2-alpha-540-ga4699532"}
-               ;com.xtdb/xtdb-api                       {:mvn/version "2.0.0-SNAPSHOT"}
-               ;com.xtdb/xtdb-core                      {:mvn/version "2.0.0-SNAPSHOT"}
                io.github.conjurernix/electric-franken                   {:mvn/version "0.0.10"}
                thheller/shadow-cljs                                     {:mvn/version "2.28.8"}
                com.fasterxml.jackson.core/jackson-core                  {:mvn/version "2.17.1"}
@@ -25,7 +23,7 @@
                ; Devenv tools
                hashp/hashp                                              {:mvn/version "0.2.2"}
                binaryage/devtools                                       {:mvn/version "1.0.7"}
-               com.taoensso/telemere                                    {:mvn/version "1.0.0-beta14"}
+               com.brunobonacci/mulog                                   {:mvn/version "0.9.0"}
                cjohansen/courier                                        {:mvn/version "2024.03.15"}
 
                ; Streamcraft (Framework components)
@@ -41,7 +39,7 @@
                streamcraft/utils                                        {:local/root "components/utils"}
                streamcraft/entity-manager                               {:local/root "components/entity-manager-malli"}
                streamcraft/domain                                       {:local/root "components/domain"}
-               streamcraft/observability                                {:local/root "components/observability-telemere"}
+               streamcraft/observability                                {:local/root "components/observability-mulog"}
 
                ;;; Http
                streamcraft/http-middleware                              {:local/root "components/http-middleware-reitit"}
@@ -79,9 +77,8 @@
                                         :deps/root "projects/kaocha-wrapper"}}}
              :jdm-opts  [:xtdb-opts]
              :xtdb-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED" "-Dio.netty.tryReflectionSetAccessible=true"]
-             :poly      {:jvm-opts   [
-                                      ; Required for in-process XTDB
-                                      "-Dpoly.test.jvm.opts=:jdm-opts"]
+             :poly      {; Required for in-process XTDB
+                         #_#_:jvm-opts ["-Dpoly.test.jvm.opts=:jdm-opts"]
                          :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
                          :extra-deps {polylith/clj-poly {:mvn/version "0.2.19"}
                                       polylith-kaocha/test-runner

@@ -19,7 +19,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" filepath="$PROJECT_DIR$/components/http-router-reitit/http-router-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" filepath="$PROJECT_DIR$/components/http-server-jetty/http-server-jetty.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/migration-datomic/migration-datomic.iml" filepath="$PROJECT_DIR$/components/migration-datomic/migration-datomic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/observability-telemere/observability-telemere.iml" filepath="$PROJECT_DIR$/components/observability-telemere/observability-telemere.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/observability-mulog/observability-mulog.iml" filepath="$PROJECT_DIR$/components/observability-mulog/observability-mulog.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/persistence-datomic-pro/persistence-datomic-pro.iml" filepath="$PROJECT_DIR$/components/persistence-datomic-pro/persistence-datomic-pro.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/persistence-schema-transformer-malli-datomic/persistence-schema-transformer-malli-datomic.iml" filepath="$PROJECT_DIR$/components/persistence-schema-transformer-malli-datomic/persistence-schema-transformer-malli-datomic.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/protocols/protocols.iml" filepath="$PROJECT_DIR$/components/protocols/protocols.iml" />
