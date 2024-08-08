@@ -27,7 +27,8 @@
                ; Devenv tools
                hashp/hashp                                              {:mvn/version "0.2.2"}
                binaryage/devtools                                       {:mvn/version "1.0.7"}
-
+               hiccup/hiccup                                            {:mvn/version "2.0.0-RC3"}
+               macchiato/hiccups                                        {:mvn/version "0.4.1"}
                ; Streamcraft (Framework components)
                ;; Bases
                streamcraft/bootstrap                                    {:local/root "bases/bootstrap"}
@@ -42,6 +43,7 @@
                streamcraft/entity-manager                               {:local/root "components/entity-manager-malli"}
                streamcraft/domain                                       {:local/root "components/domain"}
                streamcraft/observability                                {:local/root "components/observability-mulog"}
+               streamcraft/html-renderer                                {:local/root "components/html-renderer-hiccup"}
 
                ;;; Http
                streamcraft/http-middleware                              {:local/root "components/http-middleware-reitit"}

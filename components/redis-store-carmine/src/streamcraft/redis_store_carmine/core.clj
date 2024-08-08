@@ -214,3 +214,6 @@
   (zscore [this key member]
     (-> this
         (update :commands conj [car/zscore key member]))))
+
+(defn make-redis-store []
+  (map->CarmineRedisStore {}))

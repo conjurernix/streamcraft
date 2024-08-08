@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/domain/domain.iml" filepath="$PROJECT_DIR$/components/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/entity-manager-malli/entity-manager-malli.iml" filepath="$PROJECT_DIR$/components/entity-manager-malli/entity-manager-malli.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" filepath="$PROJECT_DIR$/components/frontend-router-reitit/frontend-router-reitit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/html-renderer-hiccup/html-renderer-hiccup.iml" filepath="$PROJECT_DIR$/components/html-renderer-hiccup/html-renderer-hiccup.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-client-courier/http-client-courier.iml" filepath="$PROJECT_DIR$/components/http-client-courier/http-client-courier.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-electric-handler-reitit/http-electric-handler-reitit.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" filepath="$PROJECT_DIR$/components/http-handler-reitit/http-handler-reitit.iml" />
