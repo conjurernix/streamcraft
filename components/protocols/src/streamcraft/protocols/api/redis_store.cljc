@@ -4,6 +4,12 @@
 (defprotocol IRedisStore
   "Protocol for interacting with Redis or Redis-compatible key-value store."
 
+  (run! [this] [this opts]
+    "Run the commands in the store.")
+
+  (clear-commands [this]
+    "Clear the commands in the store.")
+
   (get [this key]
     "Retrieve the value associated with the given key.")
 

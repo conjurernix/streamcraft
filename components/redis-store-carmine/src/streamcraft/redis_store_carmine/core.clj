@@ -3,196 +3,214 @@
             [streamcraft.protocols.api.redis-store :as redis-store]
             [taoensso.carmine :as car]))
 
-(defrecord CarmineRedisStore [config pool wcar-opts]
+(defrecord CarmineRedisStore [config pool wcar-opts commands]
   component/Lifecycle
   (start [this]
     (let [{:keys [pool-opts spec]} config
           pool (car/connection-pool pool-opts)
-          wcar-opts {:pool pool :spec spec}]
+          wcar-opts {:pool pool :spec spec}
+          initial-commands []]
       (-> this
           (assoc :pool pool)
-          (assoc :wcar-opts wcar-opts))))
+          (assoc :wcar-opts wcar-opts)
+          (assoc :commands initial-commands))))
 
   (stop [this]
     (.close pool)
     (-> this
         (assoc :config nil)
         (assoc :pool nil)
-        (assoc :wcar-opts nil)))
+        (assoc :wcar-opts nil)
+        (assoc :commands nil)))
 
   redis-store/IRedisStore
-  (get [_ key]
+  (run! [_]
     (car/wcar wcar-opts
-      (car/get key)))
+      (for [[command & args] commands]
+        (apply command args))))
 
-  (set [_ key val]
+  (run! [_ {:keys [as-pipeline]}]
     (car/wcar wcar-opts
-      (car/set key val)))
+      :as-pipeline
+      (for [[command & args] commands]
+        (apply command args))))
 
-  (del [_ key]
-    (car/wcar wcar-opts
-      (car/del key)))
+  (clear-commands [this]
+    (-> this
+        (update :commands empty)))
 
-  (exists [_ key]
-    (car/wcar wcar-opts
-      (car/exists key)))
+  (get [this key]
+    (-> this
+        (update :commands conj [car/get key])))
 
-  (keys [_ pattern]
-    (car/wcar wcar-opts
-      (car/keys pattern)))
+  (set [this key val]
+    (-> this
+        (update :commands conj [car/set key val])))
 
-  (expire [_ key seconds]
-    (car/wcar wcar-opts
-      (car/expire key seconds)))
+  (del [this key]
+    (-> this
+        (update :commands conj [car/del key])))
 
-  (persist [_ key]
-    (car/wcar wcar-opts
-      (car/persist key)))
+  (exists [this key]
+    (-> this
+        (update :commands conj [car/exists key])))
 
-  (inc [_ key]
-    (car/wcar wcar-opts
-      (car/inc key)))
+  (keys [this pattern]
+    (-> this
+        (update :commands conj [car/keys pattern])))
 
-  (dec [_ key]
-    (car/wcar wcar-opts
-      (car/dec key)))
+  (expire [this key seconds]
+    (-> this
+        (update :commands conj [car/expire key seconds])))
 
-  (push [_ key val]
-    (car/wcar wcar-opts
-      (car/push key val)))
+  (persist [this key]
+    (-> this
+        (update :commands conj [car/persist key])))
 
-  (pop [_ key]
-    (car/wcar wcar-opts
-      (car/pop key)))
+  (inc [this key]
+    (-> this
+        (update :commands conj [car/inc key])))
 
-  (lpush [_ key value]
-    (car/wcar wcar-opts
-      (car/lpush key value)))
+  (dec [this key]
+    (-> this
+        (update :commands conj [car/dec key])))
 
-  (rpush [_ key value]
-    (car/wcar wcar-opts
-      (car/rpush key value)))
+  (push [this key val]
+    (-> this
+        (update :commands conj [car/push key val])))
 
-  (lpop [_ key]
-    (car/wcar wcar-opts
-      (car/lpop key)))
+  (pop [this key]
+    (-> this
+        (update :commands conj [car/pop key])))
 
-  (rpop [_ key]
-    (car/wcar wcar-opts
-      (car/rpop key)))
+  (lpush [this key value]
+    (-> this
+        (update :commands conj [car/lpush key value])))
 
-  (llen [_ key]
-    (car/wcar wcar-opts
-      (car/llen key)))
+  (rpush [this key value]
+    (-> this
+        (update :commands conj [car/rpush key value])))
 
-  (lrange [_ key start stop]
-    (car/wcar wcar-opts
-      (car/lrange key start stop)))
+  (lpop [this key]
+    (-> this
+        (update :commands conj [car/lpop key])))
 
-  (lindex [_ key index]
-    (car/wcar wcar-opts
-      (car/lindex key index)))
+  (rpop [this key]
+    (-> this
+        (update :commands conj [car/rpop key])))
 
-  (lset [_ key index value]
-    (car/wcar wcar-opts
-      (car/lset key index value)))
+  (llen [this key]
+    (-> this
+        (update :commands conj [car/llen key])))
 
-  (linsert [_ key pivot value direction]
-    (car/wcar wcar-opts
-      (car/linsert key pivot value direction)))
+  (lrange [this key start stop]
+    (-> this
+        (update :commands conj [car/lrange key start stop])))
 
-  (lrem [_ key count value]
-    (car/wcar wcar-opts
-      (car/lrem key count value)))
+  (lindex [this key index]
+    (-> this
+        (update :commands conj [car/lindex key index])))
 
-  (sadd [_ key member]
-    (car/wcar wcar-opts
-      (car/sadd key member)))
+  (lset [this key index value]
+    (-> this
+        (update :commands conj [car/lset key index value])))
 
-  (srem [_ key member]
-    (car/wcar wcar-opts
-      (car/srem key member)))
+  (linsert [this key pivot value direction]
+    (-> this
+        (update :commands conj [car/linsert key pivot value direction])))
 
-  (scard [_ key]
-    (car/wcar wcar-opts
-      (car/scard key)))
+  (lrem [this key count value]
+    (-> this
+        (update :commands conj [car/lrem key count value])))
 
-  (smembers [_ key]
-    (car/wcar wcar-opts
-      (car/smembers key)))
+  (sadd [this key member]
+    (-> this
+        (update :commands conj [car/sadd key member])))
 
-  (sismember [_ key member]
-    (car/wcar wcar-opts
-      (car/sismember key member)))
+  (srem [this key member]
+    (-> this
+        (update :commands conj [car/srem key member])))
 
-  (sunion [_ keys]
-    (car/wcar wcar-opts
-      (car/sunion keys)))
+  (scard [this key]
+    (-> this
+        (update :commands conj [car/scard key])))
 
-  (sinter [_ keys]
-    (car/wcar wcar-opts
-      (car/sinter keys)))
+  (smembers [this key]
+    (-> this
+        (update :commands conj [car/smembers key])))
 
-  (sdiff [_ keys]
-    (car/wcar wcar-opts
-      (car/sdiff keys)))
+  (sismember [this key member]
+    (-> this
+        (update :commands conj [car/sismember key member])))
 
-  (srandmember [_ key]
-    (car/wcar wcar-opts
-      (car/srandmember key)))
+  (sunion [this keys]
+    (-> this
+        (update :commands conj [car/sunion keys])))
 
-  (srandmember [_ key count]
-    (car/wcar wcar-opts
-      (car/srandmember key count)))
+  (sinter [this keys]
+    (-> this
+        (update :commands conj [car/sinter keys])))
 
-  (spop [_ key]
-    (car/wcar wcar-opts
-      (car/spop key)))
+  (sdiff [this keys]
+    (-> this
+        (update :commands conj [car/sdiff keys])))
 
-  (spop [_ key count]
-    (car/wcar wcar-opts
-      (car/spop key count)))
+  (srandmember [this key]
+    (-> this
+        (update :commands conj [car/srandmember key])))
 
-  (hset [_ key field value]
-    (car/wcar wcar-opts
-      (car/hset key field value)))
+  (srandmember [this key count]
+    (-> this
+        (update :commands conj [car/srandmember key count])))
 
-  (hget [_ key field]
-    (car/wcar wcar-opts
-      (car/hget key field)))
+  (spop [this key]
+    (-> this
+        (update :commands conj [car/spop key])))
 
-  (hdel [_ key field]
-    (car/wcar wcar-opts
-      (car/hdel key field)))
+  (spop [this key count]
+    (-> this
+        (update :commands conj [car/spop key count])))
 
-  (hlen [_ key]
-    (car/wcar wcar-opts
-      (car/hlen key)))
+  (hset [this key field value]
+    (-> this
+        (update :commands conj [car/hset key field value])))
 
-  (hkeys [_ key]
-    (car/wcar wcar-opts
-      (car/hkeys key)))
+  (hget [this key field]
+    (-> this
+        (update :commands conj [car/hget key field])))
 
-  (hvalues [_ key]
-    (car/wcar wcar-opts
-      (car/hvalues key)))
+  (hdel [this key field]
+    (-> this
+        (update :commands conj [car/hdel key field])))
 
-  (zpadd [_ key score member]
-    (car/wcar wcar-opts
-      (car/zpadd key score member)))
+  (hlen [this key]
+    (-> this
+        (update :commands conj [car/hlen key])))
 
-  (zrange [_ key start stop]
-    (car/wcar wcar-opts
-      (car/zrange key start stop)))
+  (hkeys [this key]
+    (-> this
+        (update :commands conj [car/hkeys key])))
 
-  (zrem [_ key member]
-    (car/wcar wcar-opts
-      (car/zrem key member)))
+  (hvalues [this key]
+    (-> this
+        (update :commands conj [car/hvalues key])))
 
-  (zcard [_ key]
-    (car/wcar wcar-opts
-      (car/zcard key)))
+  (zpadd [this key score member]
+    (-> this
+        (update :commands conj [car/zpadd key score member])))
 
-  (zscore [_ key member]
-    (car/wcar wcar-opts
-      (car/zscore key member))))
+  (zrange [this key start stop]
+    (-> this
+        (update :commands conj [car/zrange key start stop])))
+
+  (zrem [this key member]
+    (-> this
+        (update :commands conj [car/zrem key member])))
+
+  (zcard [this key]
+    (-> this
+        (update :commands conj [car/zcard key])))
+
+  (zscore [this key member]
+    (-> this
+        (update :commands conj [car/zscore key member]))))
