@@ -8,20 +8,29 @@
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map
-                        :config {:uri "datomic:mem://test"}
+                        :datomic-config {:uri "datomic:mem://test"}
+                        :obs-config {:publishers [{:type :console}]}
+                        :obs (component/using
+                               (fresh-mulog-observability)
+                               {:config :obs-config})
                         :schemas schemas
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:schemas])
+                                          [:obs :schemas])
                         :persistence-transformer (component/using
                                                    (fresh-malli-datomic-persistence-schema-transformer)
-                                                   [:entity-manager])
+                                                   [:obs :entity-manager])
                         :migration (component/using
                                      (fresh-datomic-migration)
-                                     [:entity-manager :persistence-transformer])
+                                     {:entity-manager          :entity-manager
+                                      :persistence-transformer :persistence-transformer
+                                      :obs                     :obs})
                         :persistence (component/using
                                        (fresh-datomic-pro-persistence)
-                                       [:entity-manager :config :migration]))))
+                                       {:entity-manager :entity-manager
+                                        :config         :datomic-config
+                                        :migration      :migration
+                                        :obs            :obs}))))
 
 
 (deftest prepare--test
@@ -41,16 +50,16 @@
     (persistence-delete!-test)))
 
 (deftest fetch--test
-    (testing "DatomicProPersistence/fetch test."
-      (persistence-fetch-tests)))
+  (testing "DatomicProPersistence/fetch test."
+    (persistence-fetch-tests)))
 
 (deftest search--test
-    (testing "DatomicProPersistence/search test."
-      (persistence-search-tests)))
+  (testing "DatomicProPersistence/search test."
+    (persistence-search-tests)))
 
 (deftest transact!--test
-    (testing "DatomicProPersistence/transact! test."
-      (persistence-transact!-test)))
+  (testing "DatomicProPersistence/transact! test."
+    (persistence-transact!-test)))
 
 
 

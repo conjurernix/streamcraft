@@ -19,11 +19,14 @@
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map
-                        :config {:uri "datomic:mem://test"}
+                        :obs-config {:publishers [{:type :console}]}
+                        :obs (component/using
+                               (fresh-mulog-observability)
+                               {:config :obs-config})
                         :schemas schemas
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:schemas]))))
+                                          [:obs :schemas]))))
 
 (deftest validate--test
   (testing "MalliEntityManager/validate test."

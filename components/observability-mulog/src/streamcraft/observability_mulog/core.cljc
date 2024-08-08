@@ -25,20 +25,20 @@
         (assoc :ctx nil)))
 
   observability/ILogging
-  (log! [_ event args]
-    (-log event (flatten (seq args))))
+  (log! [_ event data]
+    (-log event (flatten (seq (assoc data :mulog/namespace 'random-namespace)))))
 
-  (info! [this event args]
-    (observability/log! this event (assoc args :level :info)))
+  (info! [this event data]
+    (observability/log! this event (assoc data :level :info)))
 
-  (warn! [this event args]
-    (observability/log! this event (assoc args :level :warn)))
+  (warn! [this event data]
+    (observability/log! this event (assoc data :level :warn)))
 
-  (error! [this event args]
-    (observability/log! this event (assoc args :level :error)))
+  (error! [this event data]
+    (observability/log! this event (assoc data :level :error)))
 
-  (debug! [this event args]
-    (observability/log! this event (assoc args :level :debug))))
+  (debug! [this event data]
+    (observability/log! this event (assoc data :level :debug))))
 
 
 (defn make-observability []
