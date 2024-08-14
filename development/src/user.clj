@@ -8,6 +8,7 @@
             [streamcraft.admin-base.main :as admin]
             [streamcraft.client-base.main :as client]
             [streamcraft.domain.api :as domain]
+            [streamcraft.email-client-mailgun.api :as mailgun.email]
             [streamcraft.entity-manager.api :as entity]
             [streamcraft.http-electric-handler.api :as http-electric-handler]
             [streamcraft.http-handler.api :as http-handler]
@@ -49,6 +50,11 @@
                     (obs.mulog/make-observability)
                     {:config :obs-config})
              :schemas domain/schemas
+             :email-client-config {}
+             :email-client (component/using
+                             (mailgun.email/make-email-client)
+                             {:config :email-client-config
+                              :obs    :obs})
              :entity-manager (component/using
                                (entity/make-entity-manager)
                                [:obs :schemas])

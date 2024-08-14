@@ -29,10 +29,11 @@
       (for [[command & args] commands]
         (apply command args))))
 
-  (run! [_ {:keys [as-pipeline]}]
+  (run! [_ {:keys [pipeline]}]
     (car/wcar wcar-opts
-      :as-pipeline
-      (for [[command & args] commands]
+      (when pipeline
+        :as-pipeline)
+      (doseq [[command & args] commands]
         (apply command args))))
 
   (clear-commands [this]

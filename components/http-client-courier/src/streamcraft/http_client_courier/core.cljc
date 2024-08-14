@@ -10,7 +10,7 @@
   (stop [this] this)
 
   http-client/IHttpClient
-  (request [_ request]
+  (request! [_ request]
     (client/request request)))
 
 (defn make-http-client []
