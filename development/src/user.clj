@@ -1,5 +1,6 @@
 (ns user
   (:require [clojure.tools.namespace.repl :as tools.repl]
+            [com.brunobonacci.mulog :as mu]
             [com.stuartsierra.component :as component]
             [datomic.api :as d]
             [hashp.core]
@@ -22,6 +23,8 @@
             [streamcraft.system.api :as system]))
 
 (repl/start-nrepl!)
+
+(mu/start-publisher! {:type :console})
 
 (defonce system
          (let [admin-jetty-config {:port           8080
