@@ -8,21 +8,17 @@
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map
-                        :obs-config {:publishers [{:type :console}]}
-                        :obs (component/using
-                               (fresh-mulog-observability)
-                               {:config :obs-config})
                         :schemas schemas
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:obs :schemas])
+                                          [:schemas])
                         :persistence-transformer
                         (component/using
                           (fresh-malli-datomic-persistence-schema-transformer)
-                          [:obs :entity-manager])
+                          [:entity-manager])
                         :migration (component/using
                                      (fresh-datomic-migration)
-                                     [:obs :entity-manager :persistence-transformer]))))
+                                     [:entity-manager :persistence-transformer]))))
 
 (deftest gen-migration--test
   (testing "Generating migration"

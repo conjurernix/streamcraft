@@ -19,16 +19,12 @@
 (use-fixtures :each (with-system-fixture
                       (component/system-map
                         :schemas schemas
-                        :obs-config {:publishers [{:type :console}]}
-                        :obs (component/using
-                               (fresh-mulog-observability)
-                               {:config :obs-config})
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:obs :schemas])
+                                          [:schemas])
                         :transformer (component/using
                                        (fresh-malli-datomic-persistence-schema-transformer)
-                                       [:obs :entity-manager]))))
+                                       [:entity-manager]))))
 
 (deftest transform--test
   (testing "Transforming a simple schema to Datomic schema, with only single cardinality and basic types."

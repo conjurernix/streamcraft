@@ -1,7 +1,7 @@
 (ns streamcraft.http-server.core
   (:require [com.stuartsierra.component :as component]
             [ring.adapter.jetty :as jetty]
-            [streamcraft.protocols.api.observability :as obs]
+            [streamcraft.logging.api :as log]
             [streamcraft.protocols.api.provider.http-handler :as handler])
   (:import (java.time Duration)
            (org.eclipse.jetty.server Server)
@@ -33,10 +33,10 @@
         ))))
 
 (defrecord JettyHttpServer
-  [obs config handler-provider server]
+  [config handler-provider server]
   component/Lifecycle
   (start [this]
-    (obs/info! obs :starting-component {:component JettyHttpServer})
+    (log/info! :starting-component {:component this})
     (-> this
         (assoc :server
                (-> (handler/get-handler handler-provider)
@@ -46,7 +46,7 @@
                                                        (add-gzip-handler! server))}
                                       config))))))
   (stop [this]
-    (obs/info! obs :stopping-component {:component JettyHttpServer})
+    (log/info! :stopping-component {:component this})
     (.stop ^Server server)
     (-> this
         (assoc :config nil)

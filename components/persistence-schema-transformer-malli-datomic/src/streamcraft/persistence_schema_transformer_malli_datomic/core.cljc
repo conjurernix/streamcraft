@@ -2,7 +2,7 @@
   (:require [com.stuartsierra.component :as component]
             [malli.core :as m]
             [streamcraft.protocols.api.entity-manager :as em]
-            [streamcraft.protocols.api.observability :as obs]
+            [streamcraft.logging.api :as log]
             [streamcraft.protocols.api.transformer.schema :as ts]))
 
 (defn malli-schema->datomic-valuetype
@@ -40,16 +40,16 @@
 
     #{'bytes? bytes?} :db.type/bytes))
 
-(defrecord MalliDatomicPersistenceSchemaTransformer [obs entity-manager]
+(defrecord MalliDatomicPersistenceSchemaTransformer [entity-manager]
 
   component/Lifecycle
 
   (start [this]
-    (obs/info! obs :starting-component {:component MalliDatomicPersistenceSchemaTransformer})
+    (log/info! :starting-component {:component this})
     this)
 
   (stop [this]
-    (obs/info! obs :stopping-component {:component MalliDatomicPersistenceSchemaTransformer})
+    (log/info! :stopping-component {:component this})
     (-> this
         (assoc :entity-manager nil)))
 

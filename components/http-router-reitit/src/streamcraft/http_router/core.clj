@@ -6,7 +6,7 @@
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
             [ring.util.http-response :as http]
-            [streamcraft.protocols.api.observability :as obs]
+            [streamcraft.logging.api :as log]
             [streamcraft.protocols.api.provider.http-router :as router]))
 
 (defn- -make-reitit-router [routes middleware electric-handler config]
@@ -44,14 +44,14 @@
                    :middleware middleware}})))
 
 (defrecord ReititRouter
-  [obs config middleware electric-handler entrypoint routes router]
+  [config middleware electric-handler entrypoint routes router]
   component/Lifecycle
 
   (start [this]
-    (obs/info! obs :starting-component {:component ReititRouter})
+    (log/info! :starting-component {:component this})
     (assoc this :router (-make-reitit-router routes middleware electric-handler config)))
   (stop [this]
-    (obs/info! obs :stopping-component {:component ReititRouter})
+    (log/info! :stopping-component {:component this})
     (-> this
         (assoc :config nil)
         (assoc :middleware nil)

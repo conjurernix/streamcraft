@@ -20,6 +20,102 @@
     </option>
   </component>
   <component name="DepsProjectsManager">
+    <option name="dirTypeMappings">
+      <set>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/bases/admin-base/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/bases/repl/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/bases/web-app/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/datalog-query-builder/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/domain/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/email-client-mailgun/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/entity-manager-malli/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/frontend-router-reitit/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/html-renderer-hiccup/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/http-client-courier/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/http-handler-reitit/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/http-middleware-reitit/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/http-router-reitit/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/http-server-jetty/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/migration-datomic/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/observability-mulog/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/persistence-datomic-pro/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/persistence-schema-transformer-malli-datomic/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/persistence-xtdb/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/protocols/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/redis-store-carmine/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/system/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/utils/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+      </set>
+    </option>
     <option name="projectFiles">
       <set>
         <option value="file://$PROJECT_DIR$/bases/admin-base/deps.edn" />
@@ -28,12 +124,23 @@
         <option value="file://$PROJECT_DIR$/bases/repl/deps.edn" />
         <option value="file://$PROJECT_DIR$/bases/web-app/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/config-aero/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/datalog-query-builder/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/domain/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/email-client-mailgun/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/entity-manager-malli/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/frontend-router-reitit/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/html-renderer-hiccup/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/http-client-courier/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-electric-handler-reitit/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-handler-reitit/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-middleware-reitit/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-router-reitit/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/http-server-jetty/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/migration-datomic/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/persistence-datomic-pro/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/persistence-schema-transformer-malli-datomic/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/protocols/deps.edn" />
+        <option value="file://$PROJECT_DIR$/components/redis-store-carmine/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/system/deps.edn" />
         <option value="file://$PROJECT_DIR$/components/utils/deps.edn" />
         <option value="file://$PROJECT_DIR$/deps.edn" />

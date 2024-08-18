@@ -19,14 +19,10 @@
 
 (use-fixtures :each (with-system-fixture
                       (component/system-map
-                        :obs-config {:publishers [{:type :console}]}
-                        :obs (component/using
-                               (fresh-mulog-observability)
-                               {:config :obs-config})
                         :schemas schemas
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:obs :schemas]))))
+                                          [:schemas]))))
 
 (deftest validate--test
   (testing "MalliEntityManager/validate test."

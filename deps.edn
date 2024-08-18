@@ -1,8 +1,7 @@
 {:mvn/repos {"ossrh-snapshots" {:url "https://s01.oss.sonatype.org/content/repositories/snapshots"}}
 
  :aliases   {:dev
-             {:jvm-opts    [
-                            ; Required for in-process XTDB
+             {:jvm-opts    [; Required for in-process XTDB
                             "--add-opens=java.base/java.nio=ALL-UNNAMED"
                             "-Dio.netty.tryReflectionSetAccessible=true"]
 
@@ -43,9 +42,9 @@
                streamcraft/utils                                        {:local/root "components/utils"}
                streamcraft/entity-manager                               {:local/root "components/entity-manager-malli"}
                streamcraft/domain                                       {:local/root "components/domain"}
-               streamcraft/observability                                {:local/root "components/observability-mulog"}
                streamcraft/html-renderer                                {:local/root "components/html-renderer-hiccup"}
                streamcraft/email-client                                 {:local/root "components/email-client-mailgun"}
+               streamcraft/logging                                      {:local/root "components/logging-mulog"}
 
                ;;; Http
                streamcraft/http-middleware                              {:local/root "components/http-middleware-reitit"}
@@ -56,7 +55,7 @@
                streamcraft/http-client                                  {:local/root "components/http-client-courier"}
 
                ;;; Database/Storage
-               ;streamcraft/persistence-xtdb            {:local/root "components/persistence-xtdb"}
+               #_#_streamcraft/persistence-xtdb {:local/root "components/persistence-xtdb"}
                streamcraft/persistence-datomic-pro                      {:local/root "components/persistence-datomic-pro"}
                streamcraft/persistence-schema-transformer-malli-datomic {:local/root "components/persistence-schema-transformer-malli-datomic"}
                streamcraft/migration-datomic                            {:local/root "components/migration-datomic"}
@@ -65,14 +64,11 @@
 
                ;;; Frontend
                streamcraft/frontend-router                              {:local/root "components/frontend-router-reitit"}
+
                ; Streamwrite (App specific components)
                ;; Bases
                streamwrite/admin-base                                   {:local/root "bases/admin-base"}
-               streamwrite/client-base                                  {:local/root "bases/client-base"}
-
-               ;; Components
-
-               }}
+               streamwrite/client-base                                  {:local/root "bases/client-base"}}}
 
              :defaults  {:extra-deps {}}
 

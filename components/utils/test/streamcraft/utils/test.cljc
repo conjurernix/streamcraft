@@ -3,8 +3,7 @@
             [streamcraft.entity-manager.api :as entity]
             [streamcraft.persistence-datomic-pro.api :as db.datomic-pro]
             [streamcraft.migration-datomic.api :as migration.datomic]
-            [streamcraft.persistence-schema-transformer-malli-datomic.api :as st.p.m.d]
-            [streamcraft.observability-mulog.api :as obs.mu])
+            [streamcraft.persistence-schema-transformer-malli-datomic.api :as st.p.m.d])
   #?(:clj (:import (clojure.lang ExceptionInfo))))
 
 ; Datomic
@@ -22,12 +21,6 @@
 
 (defn fresh-entity-manager []
   (entity/make-entity-manager))
-
-; Observability
-;; Mulog
-
-(defn fresh-mulog-observability []
-  (obs.mu/make-observability))
 
 ; System
 

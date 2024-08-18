@@ -9,28 +9,22 @@
 (use-fixtures :each (with-system-fixture
                       (component/system-map
                         :datomic-config {:uri "datomic:mem://test"}
-                        :obs-config {:publishers [{:type :console}]}
-                        :obs (component/using
-                               (fresh-mulog-observability)
-                               {:config :obs-config})
                         :schemas schemas
                         :entity-manager (component/using
                                           (fresh-entity-manager)
-                                          [:obs :schemas])
+                                          [:schemas])
                         :persistence-transformer (component/using
                                                    (fresh-malli-datomic-persistence-schema-transformer)
-                                                   [:obs :entity-manager])
+                                                   [:entity-manager])
                         :migration (component/using
                                      (fresh-datomic-migration)
                                      {:entity-manager          :entity-manager
-                                      :persistence-transformer :persistence-transformer
-                                      :obs                     :obs})
+                                      :persistence-transformer :persistence-transformer})
                         :persistence (component/using
                                        (fresh-datomic-pro-persistence)
                                        {:entity-manager :entity-manager
                                         :config         :datomic-config
-                                        :migration      :migration
-                                        :obs            :obs}))))
+                                        :migration      :migration}))))
 
 
 (deftest prepare--test

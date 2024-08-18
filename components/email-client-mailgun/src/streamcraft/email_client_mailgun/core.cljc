@@ -2,17 +2,17 @@
   (:require [com.stuartsierra.component :as component]
             [mailgun.mail :as mail]
             [streamcraft.protocols.api.email-client :as email]
-            [streamcraft.protocols.api.observability :as obs]))
+            [streamcraft.logging.api :as log]))
 
 (defrecord MailgunEmailClient
-  [config observability]
+  [config]
 
   component/Lifecycle
   (start [this]
-    (obs/info! observability :starting-component {:component MailgunEmailClient})
+    (log/info! :starting-component {:component this})
     this)
   (stop [this]
-    (obs/info! observability :stopping-component {:component MailgunEmailClient})
+    (log/info! :stopping-component {:component this})
     this)
 
   email/IEmailClient

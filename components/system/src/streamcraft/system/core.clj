@@ -8,20 +8,20 @@
             [streamcraft.http-middleware.api :as http-middleware]
             [streamcraft.http-router.api :as http-router]
             [streamcraft.http-server.api :as http-server]
+            [streamcraft.logging.api :as log]
             [streamcraft.migration-datomic.api :as datomic.migration]
     ;[streamcraft.persistence-xtdb.api :as xtdb]
             [streamcraft.persistence-datomic-pro.api :as datomic-pro]
-            [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]
-            [streamcraft.protocols.api.observability :as obs]))
+            [streamcraft.persistence-schema-transformer-malli-datomic.api :as m.d.persistence-schema-transformer]))
 
-(defn start-system! [{:keys [obs] :as system}]
+(defn start-system! [system]
   (when system
-    (obs/info! obs :starting-system {})
+    (log/info! :starting-system {})
     (component/start-system system)))
 
-(defn stop-system! [{:keys [obs] :as system}]
+(defn stop-system! [system]
   (when system
-    (obs/info! obs :stopping-system {})
+    (log/info! :stopping-system {})
     (component/stop-system system)))
 
 (defn make-system [{:keys [name entrypoint routes config]}]

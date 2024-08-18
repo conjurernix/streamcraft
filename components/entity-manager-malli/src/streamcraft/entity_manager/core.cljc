@@ -5,8 +5,8 @@
             [malli.generator :as mg]
             [malli.util :as mu]
             [potpuri.core :as pt]
-            [streamcraft.protocols.api.entity-manager :as em]
-            [streamcraft.protocols.api.observability :as obs]))
+            [streamcraft.logging.api :as log]
+            [streamcraft.protocols.api.entity-manager :as em]))
 
 (def EntityProps
   [:map
@@ -14,11 +14,11 @@
    [::em/id :keyword]
    [::em/key :keyword]])
 
-(defrecord MalliEntityManager [schemas obs registry]
+(defrecord MalliEntityManager [schemas registry]
   component/Lifecycle
 
   (start [this]
-    (obs/info! obs :starting-component {:component MalliEntityManager})
+    (log/info! :starting-component {:component this})
     (-> this
         (assoc :registry (merge
                            (m/default-schemas)
@@ -26,7 +26,7 @@
                            schemas))))
 
   (stop [this]
-    (obs/info! obs :stopping-component {:component MalliEntityManager})
+    (log/info! :stopping-component {:component this})
     (-> this
         (assoc :schemas nil)
         (assoc :registry nil)))

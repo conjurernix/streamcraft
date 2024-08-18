@@ -2,18 +2,18 @@
   (:require [com.stuartsierra.component :as component]
             [datomic.api :as d]
             [streamcraft.datalog-query-builder.api :refer [build-query]]
+            [streamcraft.logging.api :as log]
             [streamcraft.protocols.api.entity-manager :as em]
             [streamcraft.protocols.api.migration :as migration]
-            [streamcraft.protocols.api.observability :as obs]
             [streamcraft.protocols.api.persistence :as persistence])
   (:import (clojure.lang ExceptionInfo)))
 
 
-(defrecord DatomicProPersistence [obs config migration entity-manager conn txops]
+(defrecord DatomicProPersistence [config migration entity-manager conn txops]
 
   component/Lifecycle
   (start [this]
-    (obs/info! obs :starting-component {:component DatomicProPersistence})
+    (log/info! :starting-component {:component this})
     (let [{:keys [uri]} config]
       (d/create-database uri)
       (let [conn (d/connect uri)]
@@ -26,7 +26,7 @@
                  (persistence/clear-txs)))))
 
   (stop [this]
-    (obs/info! obs :stopping-component {:component DatomicProPersistence})
+    (log/info! :stopping-component {:component this})
     (let [{:keys [uri]} config]
       (d/delete-database uri)
       (-> this
